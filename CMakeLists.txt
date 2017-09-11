@@ -1,11 +1,13 @@
 cmake_minimum_required (VERSION 2.8)
 
 project (OpenglLearn)
-file(GLOB OpenglLearn_src  "main.cpp" "*.cpp" "*.h")
+add_subdirectory(3rdparty/glfw)
+file (GLOB OpenglLearn_src "*.cpp" "*.h" "src/*.cpp" "src/*.h")
+#include_directories(${PROJECT_SOURCE_DIR}/3rdparty/glfw/include)
 
-include_directories(${PROJECT_SOURCE_DIR}/3rdparty/glfw/include)
+#link_directories(${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/glfw/lib)
 
-link_directories(${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/glfw/lib)
+
 
 find_package(OpenGL REQUIRED)
 include_directories( ${OPENGL_INCLUDE_DIRS} )

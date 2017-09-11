@@ -10,7 +10,7 @@
 #include <OpenGL/GL3.h>
 #include "3rdparty/glfw/include/GLFW/glfw3.h"
 #include <cmath>
-#include "Shader.h"
+#include "src/Shader.h"
 
 // Function prototypes
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
@@ -45,7 +45,7 @@ int main(int argc, const char * argv[]) {
 
 
 //着色器
-    Shader outShader("../shader.vs", "../shader.fs");
+    Shader outShader("../src/shader.vs", "../src/shader.fs");
 
 
 //顶点数据

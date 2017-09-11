@@ -7,7 +7,7 @@
 #include <iostream>
 
 #include <OpenGL/GL3.h>
-#include "3rdparty/glfw/include/GLFW/glfw3.h"
+#include "../3rdparty/glfw/include/GLFW/glfw3.h"
 class Shader
 {
     
