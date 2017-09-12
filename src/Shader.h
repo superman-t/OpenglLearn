@@ -1,13 +1,21 @@
 #ifndef SHADER_H
 #define SHADER_H
 
+#ifdef TARGET_PLATFORM_WINDOWS || WIN32
+#include <glad/glad.h>
+#endif // TARGET_PLATFORM_WINDOWS || WIN32
+
+#ifdef TARGET_PLATFORM_MAC || TARGET_PLATFORM_IOS
+#include <OpenGL/GL3.h>
+#endif // TARGET_PLATFORM_MAC || TARGET_PLATFORM_IOS
+
 #include <string>
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <cmath>
+#include "GLFW/glfw3.h"
 
-#include <OpenGL/GL3.h>
-#include "../3rdparty/glfw/include/GLFW/glfw3.h"
 class Shader
 {
     

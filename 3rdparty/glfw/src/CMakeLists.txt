@@ -116,10 +116,10 @@ if (BUILD_SHARED_LIBS)
             set_target_properties(glfw PROPERTIES PREFIX "")
 
             # Add a suffix to the import library to avoid naming conflicts
-            set_target_properties(glfw PROPERTIES IMPORT_SUFFIX "dll.a")
+            set_target_properties(glfw PROPERTIES IMPORT_SUFFIX ".a")
         else()
             # Add a suffix to the import library to avoid naming conflicts
-            set_target_properties(glfw PROPERTIES IMPORT_SUFFIX "dll.lib")
+            set_target_properties(glfw PROPERTIES IMPORT_SUFFIX ".lib")
         endif()
     elseif (APPLE)
         # Add -fno-common to work around a bug in Apple's GCC
