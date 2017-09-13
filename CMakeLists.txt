@@ -2,8 +2,10 @@ cmake_minimum_required (VERSION 2.8)
 
 project (OpenglLearn)
 add_subdirectory(3rdparty/glfw)
+#add_subdirectory(3rdparty/glm)
 file (GLOB OpenglLearn_src "*.cpp" "*.h" "src/*.cpp" "src/*.h" )
 include_directories(${PROJECT_SOURCE_DIR}/3rdparty/glfw/include)
+include_directories(${PROJECT_SOURCE_DIR}/3rdparty/glm)
 #link_directories(${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/glfw/lib)
 
 if (WIN32)
@@ -19,6 +21,10 @@ endif()
 
 if(APPLE)
 	add_definitions( -DTARGET_PLATFORM_MAC -DTARGET_PLATFORM_IOS)
+endif()
+
+if(CMAKE_GENERATOR STREQUAL Xcode)
+    add_definitions( -DTARGET_COMPILE_XCODE)
 endif()
 
 find_package(OpenGL REQUIRED)

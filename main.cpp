@@ -15,7 +15,10 @@
 #endif // TARGET_PLATFORM_MAC || TARGET_PLATFORM_IOS
 
 
-#include "GLFW/glfw3.h"
+#include <GLFW/glfw3.h>
+#include "3rdparty/glm/glm.hpp"
+#include "3rdparty/glm/gtc/matrix_transform.hpp"
+#include "3rdparty/glm/gtc/type_ptr.hpp"
 #include <iostream>
 #include <cmath>
 #include "src/Shader.h"
@@ -45,7 +48,7 @@ int InitWindows()
 #ifdef TARGET_PLATFORM_MAC
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // uncomment this statement to fix compilation on OS X
 #endif
-    
+    return 0;
 }
 
 void InitEvents()
@@ -65,14 +68,18 @@ int main(int argc, const char * argv[]) {
         return -1;
     }
     glfwMakeContextCurrent(window);
-    
+    glm::vec4 vec(1.0f, 0.0f, 0.0f, 1.0f);
+    std::cout << vec.x;
     // Set the required callback functions
     glfwSetKeyCallback(window, key_callback);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);   
     
 // 着色器
+#ifdef TARGET_COMPILE_XCODE
+    Shader outShader("../../src/shader.vs", "../../src/shader.fs");
+#else
     Shader outShader("../src/shader.vs", "../src/shader.fs");
-    
+#endif
 //顶点数据
     GLfloat vertices[] = {
         0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f, // 右上角
