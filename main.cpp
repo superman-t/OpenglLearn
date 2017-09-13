@@ -6,14 +6,13 @@
 //  Copyright (c) 2017 AceTian. All rights reserved.
 //
 
-#ifdef TARGET_PLATFORM_WINDOWS || WIN32
+#if defined(TARGET_PLATFORM_WINDOWS) || defined(WIN32)
 #include <glad/glad.h>
 #endif // TARGET_PLATFORM_WINDOWS || WIN32
 
-#ifdef TARGET_PLATFORM_MAC || TARGET_PLATFORM_IOS
+#if defined(TARGET_PLATFORM_MAC) || defined(TARGET_PLATFORM_IOS)
 #include <OpenGL/GL3.h>
-#endif // TARGET_PLATFORM_MAC
-
+#endif // TARGET_PLATFORM_MAC || TARGET_PLATFORM_IOS
 
 
 #include "GLFW/glfw3.h"
@@ -27,18 +26,36 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 
 // Window dimensions
 const GLuint WIDTH = 800, HEIGHT = 600;
-int main(int argc, const char * argv[]) {
-    // insert code here...
+
+int InitWindows()
+{
+
+#if defined(TARGET_PLATFORM_WINDOWS) || defined(WIN32)
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+    {
+        std::cout << "Failed to initialize GLAD" << std::endl;
+        return -1;
+    }
+#endif
+
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    //glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
-
 #ifdef TARGET_PLATFORM_MAC
-	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // uncomment this statement to fix compilation on OS X
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // uncomment this statement to fix compilation on OS X
 #endif
+    
+}
 
+void InitEvents()
+{
+    
+}
+
+int main(int argc, const char * argv[]) {
+    // insert code here...
+    InitWindows();
     // Create a GLFWwindow object that we can use for GLFW's functions
     GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "OpenGLLearn", nullptr, nullptr);
     if (window == nullptr)
@@ -48,19 +65,11 @@ int main(int argc, const char * argv[]) {
         return -1;
     }
     glfwMakeContextCurrent(window);
+    
     // Set the required callback functions
     glfwSetKeyCallback(window, key_callback);
-	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-
-#ifdef TARGET_PLATFORM_WINDOWS || WIN32
-	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-	{
-		std::cout << "Failed to initialize GLAD" << std::endl;
-		return -1;
-	}
-#endif
-	
-
+    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);   
+    
 // 着色器
     Shader outShader("../src/shader.vs", "../src/shader.fs");
     

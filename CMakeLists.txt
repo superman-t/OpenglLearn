@@ -25,7 +25,12 @@ find_package(OpenGL REQUIRED)
 include_directories( ${OPENGL_INCLUDE_DIRS} )
 
 add_executable(OpenglLearn ${OpenglLearn_src} )
-target_link_libraries (OpenglLearn  ${OPENGL_LIBRARIES} glfw3 )
+if (WIN32)
+    set(GLFW_LIBRARY "glfw3")
+elseif(APPLE)
+    set(GLFW_LIBRARY "glfw")
+endif()
+target_link_libraries (OpenglLearn  ${OPENGL_LIBRARIES} ${GLFW_LIBRARY} )
 
 set(CMAKE_CXX_FLAGS "-std=c++11")
 
