@@ -3,18 +3,19 @@
 
 #if defined(TARGET_PLATFORM_WINDOWS) || defined(WIN32)
 #include <glad/glad.h>
-#endif // TARGET_PLATFORM_WINDOWS || WIN32
+#endif 
 
 #if defined(TARGET_PLATFORM_MAC) || defined(TARGET_PLATFORM_IOS)
 #include <OpenGL/GL3.h>
-#endif // TARGET_PLATFORM_MAC || TARGET_PLATFORM_IOS
+#endif 
 
+#include <GLFW/glfw3.h>
 #include <string>
 #include <fstream>
 #include <sstream>
 #include <iostream>
 #include <cmath>
-#include "GLFW/glfw3.h"
+
 
 class Shader
 {
