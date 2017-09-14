@@ -14,18 +14,17 @@
 #include <OpenGL/GL3.h>
 #endif
 
-
 #include <GLFW/glfw3.h>
 #include "3rdparty/glm/glm.hpp"
 #include "3rdparty/glm/gtc/matrix_transform.hpp"
 #include "3rdparty/glm/gtc/type_ptr.hpp"
 #include <iostream>
 #include <cmath>
-#include "src/Shader.h"
-#include "src/GameModels.h"
+#include "src/Managers/ShaderManager.h"
+#include "src/Managers/GameModels.h"
 
 Models::GameModels* gameModels;
-
+Managers::ShaderManager* shaderManager;
 // Function prototypes
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -51,8 +50,7 @@ GLFWwindow* InitWindows()
 		return nullptr;
 	}
 	glfwMakeContextCurrent(window);
-	glm::vec4 vec(1.0f, 0.0f, 0.0f, 1.0f);
-	std::cout << vec.x;
+	
 	// Set the required callback functions
 	glfwSetKeyCallback(window, key_callback);
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
@@ -68,36 +66,36 @@ GLFWwindow* InitWindows()
 
 int main(int argc, const char * argv[]) {
 	GLFWwindow* window = InitWindows();
+
     gameModels = new Models::GameModels();
-    
+	shaderManager = new Managers::ShaderManager();
 // 着色器
 #ifdef TARGET_COMPILE_XCODE
-    Shader outShader("../../Shaders/shader.vs", "../../Shaders/shader.fs");
+	shaderManager->CreateProgram("triangle1", "../../Shaders/shader.vs", "../../Shaders/shader.fs");
 #else
-    Shader outShader("../Shaders/shader.vs", "../Shaders/shader.fs");
+    shaderManager->CreateProgram("triangle1", "../Shaders/shader.vs", "../Shaders/shader.fs");
 #endif
     
-
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	gameModels->CreateTriangleModel("triangle1");
     // Game loop
     while (!glfwWindowShouldClose(window))
     {
         // Render
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
     
         glBindVertexArray(gameModels->GetModel("triangle1"));
-        outShader.Use();
+		glUseProgram(shaderManager->GetShader("triangle1"));
         glDrawArrays(GL_TRIANGLES, 0, 3);
       
         glfwSwapBuffers(window);
-
 		glfwPollEvents();
     }
     
     glfwTerminate();
     delete gameModels;
+	delete shaderManager;
     return 0;
 }
 

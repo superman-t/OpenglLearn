@@ -18,7 +18,7 @@
 #endif
 
 #include <GLFW/glfw3.h>
-#include "Vertex.h"
+#include "../Vertex.h"
 #include <vector>
 #include <map>
 #include <string>

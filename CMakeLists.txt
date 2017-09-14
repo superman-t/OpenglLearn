@@ -2,7 +2,7 @@ cmake_minimum_required (VERSION 2.8)
 
 project (OpenglLearn)
 add_subdirectory(3rdparty/glfw)
-file (GLOB OpenglLearn_src "*.cpp" "*.h" "src/*.cpp" "src/*.h" )
+file (GLOB OpenglLearn_src "main.cpp" "src/*.cpp" "src/*.h" "src/Managers/*.h" "src/Managers/*.cpp" "src/Init/*.h" "src/Init/*.cpp" )
 
 if (WIN32)
 	include_directories(${PROJECT_SOURCE_DIR}/3rdparty/glad/include)
