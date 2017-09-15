@@ -6,6 +6,7 @@
 #include "WindowInfo.h"
 #include "ContextInfo.h"
 #include "FrameBufferInfo.h"
+#include "IListener.h"
 
 namespace Init {
 	typedef void(*RenderCallback)();
@@ -20,11 +21,15 @@ namespace Init {
 		static void Run();
 		static void SetRenderCallback(RenderCallback pFunc);
 		static void SetPolygonMode(GLenum mode);
+		static void SetListener(IListener* listener);
 
 	private:
-		static GLFWwindow* windowHandler;
+		static GLFWwindow* mWindowHandler;
 		static RenderCallback mRenderCallback;
-		static GLenum PolygonMode;
+		static GLenum mPolygonMode;
+
+		static IListener* mListener;
+		static WindowInfo mWindowInfo;
 
 	private:
 		static void Render();
@@ -33,6 +38,7 @@ namespace Init {
 		static void FrameSizeChangeCallback(GLFWwindow* window, int width, int height);
 		static void KeyInputCallback(GLFWwindow* window, int key, int scancode, int action, int mode);
 		static void PrintOpenglInfo(const WindowInfo& winndowInfo, const ContextInfo& contextInfo);
+		static void DisplayCallback();
 	};
 }
 

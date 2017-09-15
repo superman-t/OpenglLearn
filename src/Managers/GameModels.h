@@ -10,8 +10,7 @@
 #define GameModels_h
 
 #include "../GLHealder.h"
-
-#include "../Vertex.h"
+#include "../Rendering/Vertex.h"
 #include <vector>
 #include <map>
 #include <string>

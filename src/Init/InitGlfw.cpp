@@ -4,9 +4,12 @@
 #include <iostream>
 using namespace Init;
 
-GLFWwindow* InitGlfw::windowHandler;
+GLFWwindow* InitGlfw::mWindowHandler;
 RenderCallback InitGlfw::mRenderCallback;
-GLenum InitGlfw::PolygonMode;
+GLenum InitGlfw::mPolygonMode;
+
+IListener* InitGlfw::mListener;
+WindowInfo InitGlfw::mWindowInfo;
 
 void InitGlfw::Init(const WindowInfo& windowInfo, const ContextInfo& contextInfo, const FrameBufferInfo& frameInfo)
 {
@@ -48,17 +51,18 @@ void InitGlfw::Init(const WindowInfo& windowInfo, const ContextInfo& contextInfo
 
 	PrintOpenglInfo(windowInfo, contextInfo);
 	
-	windowHandler = window;
+	mWindowHandler = window;
+	mWindowInfo = windowInfo;
 }
 
 void InitGlfw::Run()
 {
-	if (windowHandler == nullptr)
+	if (mWindowHandler == nullptr)
 	{
 		std::cout << "Failed to run, windowHandler is null" << std::endl;
 	}
-	glPolygonMode(GL_FRONT_AND_BACK, PolygonMode);
-	while(!glfwWindowShouldClose(windowHandler))
+	glPolygonMode(GL_FRONT_AND_BACK, mPolygonMode);
+	while(!glfwWindowShouldClose(mWindowHandler))
 	{
 		glfwPollEvents();
 		Render();
@@ -72,30 +76,45 @@ void InitGlfw::SetRenderCallback(RenderCallback pFunc)
 
 void InitGlfw::SetPolygonMode(GLenum mode)
 {
-	PolygonMode = mode;
+	mPolygonMode = mode;
+}
+
+void InitGlfw::SetListener(IListener* listener)
+{
+	mListener = listener;
 }
 
 void InitGlfw::Close(int value)
 {
-	glfwSetWindowShouldClose(windowHandler, value);
+	glfwSetWindowShouldClose(mWindowHandler, value);
 }
 
 void InitGlfw::Render()
 {
-	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);//状态设置函数
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);//状态应用函数
-	
-	
 	if (mRenderCallback != nullptr) {
 		mRenderCallback();
+		glfwSwapBuffers(mWindowHandler);
 	}
-		
-	glfwSwapBuffers(windowHandler);
+	else 
+	{
+		DisplayCallback();
+	}
 }
 
 void InitGlfw::FrameSizeChangeCallback(GLFWwindow* window, int width, int height)
 {
-	glViewport(0, 0, width, height);
+	if (mWindowInfo.isReshapble)
+	{
+		if (mListener)
+		{
+			mListener->NotifyReshape(width, height, mWindowInfo.width, mWindowInfo.height);
+			mWindowInfo.width = width;
+			mWindowInfo.height = height;
+		}
+
+		glViewport(0, 0, width, height);
+	}
+	
 }
 
 void InitGlfw::CloseCallback(GLFWwindow* window)
@@ -122,4 +141,17 @@ void InitGlfw::PrintOpenglInfo(const WindowInfo& windowInfo, const ContextInfo& 
 	std::cout << "GLFW:\tRender: " << render << std::endl;
 	std::cout << "GLFW:\tOpengl Version: " << version << std::endl;
 	std::cout << "**************************************************" << std::endl;
+}
+
+void InitGlfw::DisplayCallback()
+{
+	if (mListener)
+	{
+		mListener->NotifyBeginFrame();
+		mListener->NotifyRenderFrame();
+
+		glfwSwapBuffers(mWindowHandler);
+		
+		mListener->NotifyEndFrame();
+	}
 }
