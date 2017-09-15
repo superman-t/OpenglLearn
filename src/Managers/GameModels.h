@@ -9,15 +9,8 @@
 #ifndef GameModels_h
 #define GameModels_h
 
-#if defined(TARGET_PLATFORM_WINDOWS) || defined(WIN32)
-#include <glad/glad.h>
-#endif
+#include "../GLHealder.h"
 
-#if defined(TARGET_PLATFORM_MAC) || defined(TARGET_PLATFORM_IOS)
-#include <OpenGL/GL3.h>
-#endif
-
-#include <GLFW/glfw3.h>
 #include "../Vertex.h"
 #include <vector>
 #include <map>

@@ -1,7 +1,4 @@
-#if defined(TARGET_PLATFORM_WINDOWS) || defined(WIN32)
-#include <glad/glad.h>
-#endif 
-
+#include "../GLHealder.h"
 struct FrameBufferInfo
 {
 	unsigned int flags;
@@ -10,7 +7,7 @@ struct FrameBufferInfo
 	FrameBufferInfo()
 	{
 		flags = GL_DEPTH | GL_DOUBLE | GL_RGBA;
-		bool mutilSample = false;
+		mutilSample = false;
 	}
 
 	FrameBufferInfo(bool color, bool stencil, bool depth, bool mass)

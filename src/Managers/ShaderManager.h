@@ -1,15 +1,8 @@
-#ifndef SHADER_H
-#define SHADER_H
+#ifndef ShaderManager_H
+#define ShaderManager_H
 
-#if defined(TARGET_PLATFORM_WINDOWS) || defined(WIN32)
-#include <glad/glad.h>
-#endif 
+#include "../GLHealder.h"
 
-#if defined(TARGET_PLATFORM_MAC) || defined(TARGET_PLATFORM_IOS)
-#include <OpenGL/GL3.h>
-#endif 
-
-#include <GLFW/glfw3.h>
 #include <string>
 #include <fstream>
 #include <sstream>
