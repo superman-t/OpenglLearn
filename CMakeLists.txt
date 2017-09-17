@@ -7,6 +7,7 @@ file (GLOB OpenglLearn_src "main.cpp"
 							"src/Managers/*.h" "src/Managers/*.cpp" 
 							"src/Init/*.h" "src/Init/*.cpp" 
 							"src/Rendering/*.h" "src/Rendering/*.cpp"
+                            "src/Rendering/Models/*.h" "src/Rendering/Models/*.cpp"
 							)
 
 if (WIN32)
@@ -48,10 +49,5 @@ if (MSVC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -W4 -EHsc -D_USE_MATH_DEFINES")
 
 else()
-	set(CMAKE_CXX_COMPILER      "clang++" )         # 显示指定使用的C++编译器
-	set(CMAKE_CXX_FLAGS   "-g")                     # 调试信息
-	set(CMAKE_CXX_FLAGS   "-Wall")                  # 开启所有警告
-
-	set(CMAKE_CXX_FLAGS_DEBUG   "-O0" )             # 调试包不优化
-	set(CMAKE_CXX_FLAGS_RELEASE "-O2 -DNDEBUG " )   # release包优化
+	
 endif (MSVC)

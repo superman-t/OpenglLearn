@@ -7,13 +7,11 @@
 //
 
 #include "src/Init/InitGlfw.h"
-#include "3rdparty/glm/glm.hpp"
-#include "3rdparty/glm/gtc/matrix_transform.hpp"
-#include "3rdparty/glm/gtc/type_ptr.hpp"
+
 #include <iostream>
 #include <cmath>
-#include "src/Managers/GameModels.h"
 #include "src/Managers/SceneManager.h"
+#include "src/Managers/ShaderManager.h"
 #include "src/Init/IListener.h"
 
 using namespace Init;
@@ -28,6 +26,7 @@ int main(int argc, const char * argv[]) {
 	FrameBufferInfo frameBufferInfo(true, true, true, true);
 	InitGlfw::Init(window, context, frameBufferInfo);
 
+        
 	IListener* scene = new SceneManager();
 
 	InitGlfw::SetListener(scene);

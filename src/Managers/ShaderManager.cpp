@@ -42,7 +42,7 @@ std::string ShaderManager::ReadShader(const std::string& shaderFileName)
 	{
 		std::cout << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ" << std::endl;
 	}
-
+    std::cout << shaderCode<< std::endl;
 	return shaderCode;
 }
 

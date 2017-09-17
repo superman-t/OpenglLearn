@@ -145,6 +145,7 @@ void InitGlfw::PrintOpenglInfo(const WindowInfo& windowInfo, const ContextInfo& 
 
 void InitGlfw::DisplayCallback()
 {
+    //std::cout << "DisplayCallback" << std::endl;
 	if (mListener)
 	{
 		mListener->NotifyBeginFrame();

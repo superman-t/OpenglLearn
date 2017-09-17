@@ -9,15 +9,15 @@
 #ifndef Vertex_h
 #define Vertex_h
 
-#include "../../3rdparty/glm/glm.hpp"
+#include <glm/glm.hpp>
 namespace Rendering
 {
 
 	struct Vertex {
 		glm::vec3 position;
-		glm::vec3 color;
+		glm::vec4 color;
 
-		Vertex(const glm::vec3& _pos, const glm::vec3& _color)
+		Vertex(const glm::vec3& _pos, const glm::vec4& _color)
 		{
 			position = _pos;
 			color = _color;
