@@ -130,7 +130,7 @@ void Cube::Create()
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
     glEnableVertexAttribArray(1);
     glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE,
-                          sizeof(Vertex), (void*)sizeof(glm::vec4));
+                          sizeof(Vertex), (void*)offsetof(Vertex, color));
 
     glBindVertexArray(0);
     this->vao = vao;
