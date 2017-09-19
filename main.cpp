@@ -16,8 +16,6 @@ using namespace Models;
 int main(int argc, const char * argv[]) {
 	Engine* engine = new Engine();
 
-	engine->Init();
-
 	Cube* cube = new Cube();
 	cube->SetProgram(engine->GetShaderManager()->GetShader("ColorShader"));
 	cube->Create();

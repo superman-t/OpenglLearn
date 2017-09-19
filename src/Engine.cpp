@@ -7,7 +7,7 @@ using namespace Managers;
 
 Engine::Engine()
 {
-
+	Init();
 }
 
 Engine::~Engine()
