@@ -6,12 +6,12 @@ SceneManager::SceneManager()
 	glEnable(GL_DEPTH_TEST);
     //glEnable(GL_CULL_FACE);
     
-    mShaderManager = new ShaderManager();
-#ifdef TARGET_COMPILE_XCODE
-    mShaderManager->CreateProgram("ColorShader", "../../Shaders/shader.vs", "../../Shaders/shader.fs");
-#else
-    mShaderManager->CreateProgram("ColorShader", "../Shaders/shader.vs", "../Shaders/shader.fs");
-#endif
+//     mShaderManager = new ShaderManager();
+// #ifdef TARGET_COMPILE_XCODE
+//     mShaderManager->CreateProgram("ColorShader", "../../Shaders/shader.vs", "../../Shaders/shader.fs");
+// #else
+//     mShaderManager->CreateProgram("ColorShader", "../Shaders/shader.vs", "../Shaders/shader.fs");
+// #endif
 
     viewMatrix = glm::mat4(1.0f, 0.0f, 0.0f, 0.0f,
                             0.0f, 1.0f, 0.0f, 0.0f,
@@ -27,13 +27,14 @@ SceneManager::SceneManager()
     projectionMatrix[2][3] = 1.0f;
     projectionMatrix[3][2] = 2.0f * near1 * far1 / (near1 - far1);
     
-    mModelsManager = new ModelsManager();
+    //mModelsManager = new ModelsManager();
+	
 }
 
 SceneManager::~SceneManager()
 {
-	delete mShaderManager;
-    delete mModelsManager;
+	//delete mShaderManager;
+    //delete mModelsManager;
 }
 
 void SceneManager::NotifyBeginFrame()

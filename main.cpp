@@ -7,33 +7,25 @@
 //
 
 #include "src/Init/InitGlfw.h"
+#include "src/Rendering/Models/Cube.h"
 
-#include <iostream>
-#include <cmath>
-#include "src/Managers/SceneManager.h"
-#include "src/Managers/ShaderManager.h"
-#include "src/Init/IListener.h"
-
-using namespace Init;
-using namespace Managers;
-
+#include "src/Engine.h"
+using namespace BasicEngine;
+using namespace Rendering;
+using namespace Models;
 int main(int argc, const char * argv[]) {
-	WindowInfo window(std::string("OpenGL Learn Tutorial "),
-		800, 600,//size
-		400, 200, //position
-		true);//reshape
-	ContextInfo context(3, 3, true);
-	FrameBufferInfo frameBufferInfo(true, true, true, true);
-	InitGlfw::Init(window, context, frameBufferInfo);
+	Engine* engine = new Engine();
 
-        
-	IListener* scene = new SceneManager();
+	engine->Init();
 
-	InitGlfw::SetListener(scene);
-	InitGlfw::SetPolygonMode(GL_FILL);
-	InitGlfw::Run();
-	
-    glfwTerminate();
+	Cube* cube = new Cube();
+	cube->SetProgram(engine->GetShaderManager()->GetShader("ColorShader"));
+	cube->Create();
+
+	engine->GetModelsManager()->SetModel("cube", cube);
+	engine->Run();
+
+	delete engine;
     return 0;
 }
 
