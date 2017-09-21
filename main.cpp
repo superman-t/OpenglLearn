@@ -8,6 +8,8 @@
 
 #include "src/Init/InitGlfw.h"
 #include "src/Rendering/Models/Cube.h"
+#include "src/Rendering/Models/CubeIndexed.h"
+
 
 #include "src/Engine.h"
 using namespace BasicEngine;
@@ -16,7 +18,7 @@ using namespace Models;
 int main(int argc, const char * argv[]) {
 	Engine* engine = new Engine();
 
-	Cube* cube = new Cube();
+	CubeIndexed* cube = new CubeIndexed();
 	cube->SetProgram(engine->GetShaderManager()->GetShader("ColorShader"));
 	cube->Create();
 
