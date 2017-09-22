@@ -3,6 +3,7 @@ cmake_minimum_required (VERSION 2.8)
 project (OpenglLearn)
 add_subdirectory(3rdparty/glfw)
 add_subdirectory(3rdparty/SOIL)
+
 file (GLOB OpenglLearn_src "main.cpp" 
 							"src/*.cpp" "src/*.h" 
 							"src/Managers/*.h" "src/Managers/*.cpp" 
@@ -11,6 +12,7 @@ file (GLOB OpenglLearn_src "main.cpp"
                             "src/Rendering/Models/*.h" "src/Rendering/Models/*.cpp"
 							)
 
+
 if (WIN32)
 	include_directories(${PROJECT_SOURCE_DIR}/3rdparty/glad/include)
 	file(GLOB OpenglLearn_src  ${OpenglLearn_src} "src/glad.c")
@@ -18,11 +20,11 @@ if (WIN32)
 endif()
 
 include_directories(${PROJECT_SOURCE_DIR}/3rdparty/glfw/include)
-include_directories(${PROJECT_SOURCE_DIR}/3rdparty/SOIL/include)
+include_directories(${PROJECT_SOURCE_DIR}/3rdparty/SOIL/include)
 include_directories(${PROJECT_SOURCE_DIR}/3rdparty/glm)
 
-include_directories(${PROJECT_SOURCE_DIR}/3rdparty/assimp-3.1.1/include)
-link_directories(${PROJECT_SOURCE_DIR}/3rdparty/assimp-3.1.1/lib)
+include_directories(3rdparty/assimp-3.1.1/include)
+
 
 
 
@@ -41,13 +43,15 @@ endif()
 find_package(OpenGL REQUIRED)
 include_directories( ${OPENGL_INCLUDE_DIRS} )
 
+link_directories(${PROJECT_SOURCE_DIR}/3rdparty/assimp-3.1.1/lib)
+
 add_executable(OpenglLearn ${OpenglLearn_src} )
 if (WIN32)
     set(GLFW_LIBRARY "glfw3")
 elseif(APPLE)
     set(GLFW_LIBRARY "glfw")
 endif()
-target_link_libraries (OpenglLearn  ${OPENGL_LIBRARIES} ${GLFW_LIBRARY} SOIL assimp )
+target_link_libraries (OpenglLearn  ${OPENGL_LIBRARIES} ${GLFW_LIBRARY} assimp.3.1.1 )
 
 set(CMAKE_CXX_FLAGS "-std=c++11")
 
