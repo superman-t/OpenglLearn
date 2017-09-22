@@ -2,6 +2,7 @@ cmake_minimum_required (VERSION 2.8)
 
 project (OpenglLearn)
 add_subdirectory(3rdparty/glfw)
+add_subdirectory(3rdparty/SOIL)
 file (GLOB OpenglLearn_src "main.cpp" 
 							"src/*.cpp" "src/*.h" 
 							"src/Managers/*.h" "src/Managers/*.cpp" 
@@ -17,7 +18,13 @@ if (WIN32)
 endif()
 
 include_directories(${PROJECT_SOURCE_DIR}/3rdparty/glfw/include)
+include_directories(${PROJECT_SOURCE_DIR}/3rdparty/SOIL/src)
 include_directories(${PROJECT_SOURCE_DIR}/3rdparty/glm)
+
+include_directories(${PROJECT_SOURCE_DIR}/3rdparty/assimp-3.1.1/include)
+link_directories(${PROJECT_SOURCE_DIR}/3rdparty/assimp-3.1.1/lib)
+
+
 
 if(WIN32)
 	add_definitions(-DTARGET_PLATFORM_WINDOWS -DWIN32)
@@ -40,7 +47,7 @@ if (WIN32)
 elseif(APPLE)
     set(GLFW_LIBRARY "glfw")
 endif()
-target_link_libraries (OpenglLearn  ${OPENGL_LIBRARIES} ${GLFW_LIBRARY} )
+target_link_libraries (OpenglLearn  ${OPENGL_LIBRARIES} ${GLFW_LIBRARY} assimp SOIL)
 
 set(CMAKE_CXX_FLAGS "-std=c++11")
 

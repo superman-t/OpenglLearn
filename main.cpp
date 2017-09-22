@@ -10,8 +10,12 @@
 #include "src/Rendering/Models/Cube.h"
 #include "src/Rendering/Models/CubeIndexed.h"
 
-
 #include "src/Engine.h"
+
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+
 using namespace BasicEngine;
 using namespace Rendering;
 using namespace Models;
