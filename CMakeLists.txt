@@ -18,7 +18,7 @@ if (WIN32)
 endif()
 
 include_directories(${PROJECT_SOURCE_DIR}/3rdparty/glfw/include)
-include_directories(${PROJECT_SOURCE_DIR}/3rdparty/SOIL/src)
+include_directories(${PROJECT_SOURCE_DIR}/3rdparty/SOIL/include)
 include_directories(${PROJECT_SOURCE_DIR}/3rdparty/glm)
 
 include_directories(${PROJECT_SOURCE_DIR}/3rdparty/assimp-3.1.1/include)
@@ -47,7 +47,7 @@ if (WIN32)
 elseif(APPLE)
     set(GLFW_LIBRARY "glfw")
 endif()
-target_link_libraries (OpenglLearn  ${OPENGL_LIBRARIES} ${GLFW_LIBRARY} assimp SOIL)
+target_link_libraries (OpenglLearn  ${OPENGL_LIBRARIES} ${GLFW_LIBRARY} SOIL assimp )
 
 set(CMAKE_CXX_FLAGS "-std=c++11")
 

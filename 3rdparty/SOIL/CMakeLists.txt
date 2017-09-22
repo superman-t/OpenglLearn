@@ -13,7 +13,7 @@ endif()
 file (GLOB SOIL_SOURCES include/*.c)
 file (GLOB SOIL_HEADERS include/*.h)
 
-add_library (SOIL ${SOIL_SOURCES} ${SOIL_HEADERS})
+add_library (SOIL STATIC ${SOIL_SOURCES} ${SOIL_HEADERS})
 target_link_libraries (SOIL ${LIBRARIES})
 
 install (TARGETS SOIL
