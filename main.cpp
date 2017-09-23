@@ -15,6 +15,8 @@
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
+#include <SOIL.h>
+
 
 using namespace BasicEngine;
 using namespace Rendering;

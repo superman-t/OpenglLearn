@@ -48,6 +48,7 @@ bool Engine::Init()
 	mShaderManager->CreateProgram("ColorShader", "../../Shaders/shader.vs", "../../Shaders/shader.fs");
 #else
 	mShaderManager->CreateProgram("ColorShader", "../Shaders/shader.vs", "../Shaders/shader.fs");
+    
 #endif
 
 	if (mShaderManager)
