@@ -27,12 +27,17 @@ namespace Init {
 		static GLFWwindow* mWindowHandler;
 		static RenderCallback mRenderCallback;
 		static GLenum mPolygonMode;
+        
+        static GLfloat currentFrame;
+        static GLfloat deltaTime;
+        static GLfloat lastFrame;
 
 		static IListener* mListener;
 		static WindowInfo mWindowInfo;
 
 	private:
-		static void Render();
+		static void Render(GLfloat deltaTime);
+        static void CalculateDeltaTime();
 		static void Close(int value);
 		static void CloseCallback(GLFWwindow* window);
 		static void FrameSizeChangeCallback(GLFWwindow* window, int width, int height);
@@ -40,7 +45,7 @@ namespace Init {
         static void ScrollCallback(GLFWwindow* window, double xoffset, double yoffset);
 		static void KeyInputCallback(GLFWwindow* window, int key, int scancode, int action, int mode);
 		static void PrintOpenglInfo(const WindowInfo& winndowInfo, const ContextInfo& contextInfo);
-		static void DisplayCallback();
+		static void DisplayCallback(GLfloat deltaTime);
 	};
 }
 

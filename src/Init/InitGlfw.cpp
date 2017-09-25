@@ -8,6 +8,10 @@ GLFWwindow* InitGlfw::mWindowHandler;
 RenderCallback InitGlfw::mRenderCallback;
 GLenum InitGlfw::mPolygonMode;
 
+GLfloat InitGlfw::currentFrame;
+GLfloat InitGlfw::deltaTime;
+GLfloat InitGlfw::lastFrame;
+
 IListener* InitGlfw::mListener;
 WindowInfo InitGlfw::mWindowInfo;
 
@@ -38,6 +42,7 @@ void InitGlfw::Init(const WindowInfo& windowInfo, const ContextInfo& contextInfo
 
 	std::cout << "GLFW:Initialized" << std::endl;
 
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	glfwSetKeyCallback(window, KeyInputCallback);
     glfwSetScrollCallback(window, ScrollCallback);
     glfwSetCursorPosCallback(window, MouseCallback);
@@ -55,6 +60,7 @@ void InitGlfw::Init(const WindowInfo& windowInfo, const ContextInfo& contextInfo
 	
 	mWindowHandler = window;
 	mWindowInfo = windowInfo;
+    deltaTime = 1.0f/60;
 }
 
 void InitGlfw::Run()
@@ -67,8 +73,16 @@ void InitGlfw::Run()
 	while(!glfwWindowShouldClose(mWindowHandler))
 	{
 		glfwPollEvents();
-		Render();
+		Render(deltaTime);
+        CalculateDeltaTime();
 	}
+}
+
+void InitGlfw::CalculateDeltaTime()
+{
+    currentFrame = glfwGetTime();
+    deltaTime = currentFrame - lastFrame;
+    lastFrame = currentFrame;
 }
 
 void InitGlfw::SetRenderCallback(RenderCallback pFunc)
@@ -91,7 +105,7 @@ void InitGlfw::Close(int value)
 	glfwSetWindowShouldClose(mWindowHandler, value);
 }
 
-void InitGlfw::Render()
+void InitGlfw::Render(GLfloat deltaTime)
 {
 	if (mRenderCallback != nullptr) {
 		mRenderCallback();
@@ -99,7 +113,7 @@ void InitGlfw::Render()
 	}
 	else 
 	{
-		DisplayCallback();
+		DisplayCallback(deltaTime);
 	}
 }
 
@@ -126,19 +140,31 @@ void InitGlfw::CloseCallback(GLFWwindow* window)
 
 void InitGlfw::KeyInputCallback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
-	std::cout << "Key Input: " << key << std::endl;
+	//std::cout << "Key Input: " << key << std::endl;
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		Close(GL_TRUE);
+    if (mListener)
+    {
+        mListener->NotifyKeyInput(key, scancode, action, mode);
+    }
 }
 
 void InitGlfw::MouseCallback(GLFWwindow* window, double xpos, double ypos)
 {
-    
+    std::cout << "mouse " << xpos << " " << ypos << std::endl;
+    if (mListener)
+    {
+        mListener->NotifyMouseMove(xpos, ypos);
+    }
 }
 
 void InitGlfw::ScrollCallback(GLFWwindow* window, double xoffset, double yoffset)
 {
-    
+    std::cout << "scroll " << xoffset << ":" << yoffset << std::endl;
+    if (mListener)
+    {
+        mListener->NotifyScrollMove(xoffset, yoffset);
+    }
 }
 
 void InitGlfw::PrintOpenglInfo(const WindowInfo& windowInfo, const ContextInfo& contextInfo)
@@ -155,16 +181,16 @@ void InitGlfw::PrintOpenglInfo(const WindowInfo& windowInfo, const ContextInfo& 
 	std::cout << "**************************************************" << std::endl;
 }
 
-void InitGlfw::DisplayCallback()
+void InitGlfw::DisplayCallback(GLfloat deltaTime)
 {
     //std::cout << "DisplayCallback" << std::endl;
 	if (mListener)
 	{
-		mListener->NotifyBeginFrame();
-		mListener->NotifyRenderFrame();
+		mListener->NotifyBeginFrame(deltaTime);
+		mListener->NotifyRenderFrame(deltaTime);
 
 		glfwSwapBuffers(mWindowHandler);
 		
-		mListener->NotifyEndFrame();
+		mListener->NotifyEndFrame(deltaTime);
 	}
 }
