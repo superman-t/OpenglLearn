@@ -127,8 +127,8 @@ void CubeIndexed::Draw(const glm::mat4 &projectionMatrix, const glm::mat4 &viewM
                                       rotation.z * glm::pi<float>()/180);
     
     glUseProgram(program);
-    glUniform3f(glGetUniformLocation(program, "rotation"),
-                rotationSin.x, rotationSin.y, rotationSin.z);
+//    glUniform3f(glGetUniformLocation(program, "rotation"),
+//                rotationSin.x, rotationSin.y, rotationSin.z);
     
     glUniformMatrix4fv(glGetUniformLocation(program, "viewMatrix"), 1, false,
                        &viewMatrix[0][0]);
