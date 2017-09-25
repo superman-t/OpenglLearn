@@ -6,13 +6,6 @@ SceneManager::SceneManager()
 	glEnable(GL_DEPTH_TEST);
     //glEnable(GL_CULL_FACE);
     
-//     mShaderManager = new ShaderManager();
-// #ifdef TARGET_COMPILE_XCODE
-//     mShaderManager->CreateProgram("ColorShader", "../../Shaders/shader.vs", "../../Shaders/shader.fs");
-// #else
-//     mShaderManager->CreateProgram("ColorShader", "../Shaders/shader.vs", "../Shaders/shader.fs");
-// #endif
-
     viewMatrix = glm::mat4(1.0f, 0.0f, 0.0f, 0.0f,
                             0.0f, 1.0f, 0.0f, 0.0f,
                             0.0f, 0.0f, -1.0f, 0.0f,

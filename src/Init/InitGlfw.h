@@ -36,6 +36,8 @@ namespace Init {
 		static void Close(int value);
 		static void CloseCallback(GLFWwindow* window);
 		static void FrameSizeChangeCallback(GLFWwindow* window, int width, int height);
+        static void MouseCallback(GLFWwindow* window, double xpos, double ypos);
+        static void ScrollCallback(GLFWwindow* window, double xoffset, double yoffset);
 		static void KeyInputCallback(GLFWwindow* window, int key, int scancode, int action, int mode);
 		static void PrintOpenglInfo(const WindowInfo& winndowInfo, const ContextInfo& contextInfo);
 		static void DisplayCallback();

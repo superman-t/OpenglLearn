@@ -39,6 +39,8 @@ void InitGlfw::Init(const WindowInfo& windowInfo, const ContextInfo& contextInfo
 	std::cout << "GLFW:Initialized" << std::endl;
 
 	glfwSetKeyCallback(window, KeyInputCallback);
+    glfwSetScrollCallback(window, ScrollCallback);
+    glfwSetCursorPosCallback(window, MouseCallback);
 	glfwSetFramebufferSizeCallback(window, FrameSizeChangeCallback);
 	glfwSetWindowCloseCallback(window, CloseCallback);
 
@@ -127,6 +129,16 @@ void InitGlfw::KeyInputCallback(GLFWwindow* window, int key, int scancode, int a
 	std::cout << "Key Input: " << key << std::endl;
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		Close(GL_TRUE);
+}
+
+void InitGlfw::MouseCallback(GLFWwindow* window, double xpos, double ypos)
+{
+    
+}
+
+void InitGlfw::ScrollCallback(GLFWwindow* window, double xoffset, double yoffset)
+{
+    
 }
 
 void InitGlfw::PrintOpenglInfo(const WindowInfo& windowInfo, const ContextInfo& contextInfo)
