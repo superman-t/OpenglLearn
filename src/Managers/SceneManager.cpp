@@ -8,21 +8,11 @@ SceneManager::SceneManager()
     
     mCamera = new Camera();
     
-    
-    
-    
-//    float ar = (float)800/600;
-//    float angle = 45.0f, near1 = 0.1f, far1 = 2000.0f;
-//    
-//    projectionMatrix[0][0] = 1.0f / (ar * tan(angle / 2.0f));
-//    projectionMatrix[1][1] = 1.0f / tan(angle / 2.0f);
-//    projectionMatrix[2][2] = (-near1 - far1) / (near1 - far1);
-//    projectionMatrix[2][3] = 1.0f;
-//    projectionMatrix[3][2] = 2.0f * near1 * far1 / (near1 - far1);
     viewMatrix = mCamera->GetViewMatrix();
     projectionMatrix = glm::perspective(mCamera->zoom, (float)800/600, 0.1f, 2000.0f);
     lastXpos = 400;
     lastYpos = 300;
+    
     cameraDirection = UNKNOW;
 	
 }
