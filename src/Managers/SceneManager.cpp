@@ -6,7 +6,9 @@ SceneManager::SceneManager()
 	glEnable(GL_DEPTH_TEST);
     //glEnable(GL_CULL_FACE);
     
-    mCamera = new Camera();
+    mCamera = new Camera(glm::vec3(0, 10, 25),
+                         glm::vec3(0, 1, 0),
+                         -91, -16);
     
     viewMatrix = mCamera->GetViewMatrix();
     projectionMatrix = glm::perspective(mCamera->zoom, (float)800/600, 0.1f, 2000.0f);

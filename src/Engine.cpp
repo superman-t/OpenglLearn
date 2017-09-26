@@ -24,7 +24,7 @@ Engine::~Engine()
 
 bool Engine::Init()
 {
-	WindowInfo window(std::string("OpenGL Learn Tutorial "),
+	WindowInfo window(std::string("OpenGL Basic Engine"),
 		800, 600,//size
 		400, 200, //position
 		true);//reshape

@@ -151,7 +151,7 @@ void InitGlfw::KeyInputCallback(GLFWwindow* window, int key, int scancode, int a
 
 void InitGlfw::MouseCallback(GLFWwindow* window, double xpos, double ypos)
 {
-    std::cout << "mouse " << xpos << " " << ypos << std::endl;
+    //std::cout << "mouse " << xpos << " " << ypos << std::endl;
     if (mListener)
     {
         mListener->NotifyMouseMove(xpos, ypos);

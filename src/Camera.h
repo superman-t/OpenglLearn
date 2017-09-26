@@ -36,7 +36,7 @@
         GLfloat mouseSensitivty;
         GLfloat zoom;
         
-        Camera(glm::vec3 _position = glm::vec3(0.0f, 0.0f, 10.0f),
+        Camera(glm::vec3 _position = glm::vec3(0.0f, 15.0f, 40.0f),
                glm::vec3 _up = glm::vec3(0.0f, 1.0f, 0.0f),
                GLfloat _yaw = YAW,
                GLfloat _pitch = PITCH)
@@ -66,6 +66,7 @@
         
         glm::mat4 GetViewMatrix()
         {
+            std::cout << position.y << " " << position.z << " " << zoom << " " << pitch << " " << yaw << std::endl;
             return glm::lookAt(position, position+front, up);
         }
         
@@ -116,7 +117,7 @@
     private:
         void UpdateCameraVectors()
         {
-            std::cout << "yaw " << yaw << " " << "pitch " << pitch << std::endl;
+            //std::cout << "yaw " << yaw << " " << "pitch " << pitch << std::endl;
             glm::vec3 front;
             front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
             front.y = sin(glm::radians(pitch));

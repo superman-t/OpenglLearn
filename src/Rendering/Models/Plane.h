@@ -15,7 +15,10 @@ namespace Rendering {
             void Create();
             
             virtual void Update() override final;
-            virtual void Draw() override final;
+            virtual void Draw(const glm::mat4 &projectionMatrix, const glm::mat4 &viewMatrix) override final;
+            
+        private:
+            int verticesize;
         };
     }
 }

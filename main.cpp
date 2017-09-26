@@ -9,6 +9,7 @@
 #include "src/Init/InitGlfw.h"
 #include "src/Rendering/Models/Cube.h"
 #include "src/Rendering/Models/CubeIndexed.h"
+#include "src/Rendering/Models/Plane.h"
 
 #include "src/Engine.h"
 
@@ -27,8 +28,15 @@ int main(int argc, const char * argv[]) {
 	CubeIndexed* cube = new CubeIndexed();
 	cube->SetProgram(engine->GetShaderManager()->GetShader("ColorShader"));
 	cube->Create();
+    
+    
+    Plane* plane = new Plane();
+    plane->SetProgram(engine->GetShaderManager()->GetShader("ColorShader"));
+    plane->Create();
+    
 
 	engine->GetModelsManager()->SetModel("cube", cube);
+    engine->GetModelsManager()->SetModel("plane", plane);
 	engine->Run();
 
 	delete engine;
