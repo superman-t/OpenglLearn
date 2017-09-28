@@ -24,9 +24,7 @@ include_directories(${PROJECT_SOURCE_DIR}/3rdparty/SOIL/include)
 include_directories(${PROJECT_SOURCE_DIR}/3rdparty/glm)
 
 include_directories(3rdparty/assimp-3.1.1/include)
-
-
-
+link_directories(${PROJECT_SOURCE_DIR}/3rdparty/assimp-3.1.1/lib)
 
 if(WIN32)
 	add_definitions(-DTARGET_PLATFORM_WINDOWS -DWIN32)
@@ -43,15 +41,10 @@ endif()
 find_package(OpenGL REQUIRED)
 include_directories( ${OPENGL_INCLUDE_DIRS} )
 
-link_directories(${PROJECT_SOURCE_DIR}/3rdparty/assimp-3.1.1/lib)
 
 add_executable(OpenglLearn ${OpenglLearn_src} )
-if (WIN32)
-    set(GLFW_LIBRARY "glfw3")
-elseif(APPLE)
-    set(GLFW_LIBRARY "glfw")
-endif()
-target_link_libraries (OpenglLearn  ${OPENGL_LIBRARIES} ${GLFW_LIBRARY} assimp.3.1.1 )
+
+target_link_libraries (OpenglLearn  ${OPENGL_LIBRARIES} glfw ${GLFW_LIBRARIES} assimp )
 
 set(CMAKE_CXX_FLAGS "-std=c++11")
 
