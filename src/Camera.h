@@ -66,7 +66,7 @@
         
         glm::mat4 GetViewMatrix()
         {
-            std::cout << position.y << " " << position.z << " " << zoom << " " << pitch << " " << yaw << std::endl;
+            //std::cout << position.y << " " << position.z << " " << zoom << " " << pitch << " " << yaw << std::endl;
             return glm::lookAt(position, position+front, up);
         }
         

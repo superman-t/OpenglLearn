@@ -87,7 +87,7 @@ void SceneManager::NotifyKeyInput(int key, int scancode, int action, int mode)
 
 void SceneManager::NotifyMouseMove(double xpos, double ypos)
 {
-    mCamera->ProcessMouseMovement(xpos - lastXpos, lastYpos - ypos, true);
+    mCamera->ProcessMouseMovement(xpos - lastXpos, lastYpos - ypos, false);
     lastXpos = xpos;
     lastYpos = ypos;
 }

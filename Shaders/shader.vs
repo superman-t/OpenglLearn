@@ -4,13 +4,22 @@ layout(location = 0) in vec3 position;
 layout(location = 1) in vec4 color;
 uniform mat4 projectionMatrix, viewMatrix;
 uniform vec3 rotation;
+uniform int line;
 
 out vec4 outColor;
 
 void main()
 {
     
-    outColor = color;
+    if (line == 1)
+    {
+        outColor = vec4(0.0, 0.0, 0.0, 1.0);
+    }
+    else
+    {
+        outColor = color;
+    }
+    
     mat4 rotate_x, rotate_y, rotate_z;
     
     rotate_x = mat4(1.0, 0.0, 0.0, 0.0,
@@ -27,8 +36,17 @@ void main()
                     sin(rotation.z), cos(rotation.z), 0.0, 0.0,
                     0.0, 0.0, 1.0, 0.0,
                     0.0, 0.0, 0.0, 1.0);
+    if (line == 1)
+    {
+        gl_Position = projectionMatrix * viewMatrix *
+        rotate_y * rotate_x *rotate_z * vec4(position.x, 0.05, position.z, 1);
+    }
+    else
+    {
+        gl_Position = projectionMatrix * viewMatrix *
+        rotate_y * rotate_x *rotate_z * vec4(position, 1);
+    }
     
-    gl_Position = projectionMatrix * viewMatrix *
-    rotate_y * rotate_x *rotate_z * vec4(position, 1);
+
     
 }
