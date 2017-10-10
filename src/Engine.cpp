@@ -45,10 +45,11 @@ bool Engine::Init()
 	
 	mShaderManager = new ShaderManager();
 #ifdef TARGET_COMPILE_XCODE
-	mShaderManager->CreateProgram("ColorShader", "../../Shaders/shader.vs", "../../Shaders/shader.fs");
+	mShaderManager->CreateProgram("PlaneShader", "../../Shaders/plane.vs", "../../Shaders/plane.fs");
+    mShaderManager->CreateProgram("CubeShader", "../../Shaders/cube.vs", "../../Shaders/cube.fs");
 #else
-	mShaderManager->CreateProgram("ColorShader", "../Shaders/shader.vs", "../Shaders/shader.fs");
-    
+	mShaderManager->CreateProgram("PlaneShader", "../Shaders/plane.vs", "../Shaders/plane.fs");
+    mShaderManager->CreateProgram("CubeShader", "../Shaders/cube.vs", "../Shaders/cube.fs");
 #endif
 
 	if (mShaderManager)

@@ -46,7 +46,4 @@ void main()
         gl_Position = projectionMatrix * viewMatrix *
         rotate_y * rotate_x *rotate_z * vec4(position, 1);
     }
-    
-
-    
 }

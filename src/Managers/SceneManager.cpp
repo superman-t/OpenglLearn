@@ -11,7 +11,7 @@ SceneManager::SceneManager()
                          -91, -16);
     
     viewMatrix = mCamera->GetViewMatrix();
-    projectionMatrix = glm::perspective(mCamera->zoom, (float)800/600, 0.1f, 2000.0f);
+    projectionMatrix = glm::perspective(glm::radians(mCamera->zoom), (float)800/600, 0.1f, 1000.0f);
     lastXpos = 400;
     lastYpos = 300;
     
@@ -95,6 +95,7 @@ void SceneManager::NotifyMouseMove(double xpos, double ypos)
 
 void SceneManager::NotifyScrollMove(double xoffset, double yoffset)
 {
+    std::cout << "yoffset " << yoffset << std::endl;
     mCamera->ProcessMouseScroll(yoffset);
 }
 

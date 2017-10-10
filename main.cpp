@@ -26,12 +26,12 @@ int main(int argc, const char * argv[]) {
 	Engine* engine = new Engine();
 
 	CubeIndexed* cube = new CubeIndexed();
-	cube->SetProgram(engine->GetShaderManager()->GetShader("ColorShader"));
+	cube->SetProgram(engine->GetShaderManager()->GetShader("CubeShader"));
 	cube->Create();
     
     
     Plane* plane = new Plane(40, 40);
-    plane->SetProgram(engine->GetShaderManager()->GetShader("ColorShader"));
+    plane->SetProgram(engine->GetShaderManager()->GetShader("PlaneShader"));
     plane->Create();
     
 

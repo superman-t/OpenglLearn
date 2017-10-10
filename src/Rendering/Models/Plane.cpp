@@ -76,16 +76,12 @@ void Plane::Draw(const glm::mat4 &projectionMatrix, const glm::mat4 &viewMatrix)
                        &viewMatrix[0][0]);
     glUniformMatrix4fv(glGetUniformLocation(program, "projectionMatrix"), 1, false,
                        &projectionMatrix[0][0]);
+    // draw plane
 	glUniform1i(glGetUniformLocation(program, "line"), 0);
     glBindVertexArray(vao);
     glDrawArrays(GL_TRIANGLE_STRIP, 0, verticesize);
 
-	//glUseProgram(program);
-// 	glUniformMatrix4fv(glGetUniformLocation(program, "viewMatrix"), 1, false,
-// 		&viewMatrix[0][0]);
-// 	glUniformMatrix4fv(glGetUniformLocation(program, "projectionMatrix"), 1, false,
-// 		&projectionMatrix[0][0]);
-	//glBindVertexArray(vao);
+    // draw lines
 	glUniform1i(glGetUniformLocation(program, "line"), 1);
 	glDrawArrays(GL_LINES, 0, verticesize);
 }
