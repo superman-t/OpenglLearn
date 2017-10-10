@@ -18,7 +18,7 @@
     const GLfloat PITCH = 0.0f;
     const GLfloat SPEED = 3.0f;
     const GLfloat SENSITIVTY = 0.025f;
-    const GLfloat ZOOM = 70.0f;
+    const GLfloat ZOOM = 45.0f;
     
     class Camera
     {
@@ -104,16 +104,14 @@
         
         void ProcessMouseScroll(GLfloat yoffset)
         {
-            if (zoom >= 1.0f && zoom <= 45.0f) {
+            if (zoom >= 0.1f && zoom <= 90.0f) {
                 zoom -= yoffset;
             }
             
-            if (zoom <= 1.0f)
-                zoom = 1.0f;
-            if (zoom >= 45.0f)
-                zoom = 45.0f;
-            
-            std::cout << "zoom: " << glm::radians(zoom) << std::endl;
+            if (zoom <= 0.1f)
+                zoom = 0.1f;
+            if (zoom >= 90.0f)
+                zoom = 90.0f;
         }
         
     private:

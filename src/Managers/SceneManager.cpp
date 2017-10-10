@@ -29,7 +29,7 @@ void SceneManager::NotifyBeginFrame(GLfloat deltaTime)
     mModelsManager->Update();
     mCamera->ProcessKeyboard(cameraDirection, deltaTime);
     viewMatrix = mCamera->GetViewMatrix();
-    projectionMatrix = glm::perspective(mCamera->zoom, (float)800/600, 0.1f, 2000.0f);
+    projectionMatrix = glm::perspective(glm::radians(mCamera->zoom), (float)800/600, 0.1f, 2000.0f);
     
 }
 
@@ -56,7 +56,7 @@ void SceneManager::NotifyReshape(int width, int height, int previousWidth, int p
     float ar = (float)width/height;
     float angle = 45.0f, near1 = 0.1f, far1 = 2000.0f;
     
-    projectionMatrix[0][0] = 1.0f / (ar * tan(angle / 2.0f));
+    projectionMatrix[0][0] = 1.0f / (ar * tan(glm::radians(angle / 2.0f)));
     projectionMatrix[1][1] = 1.0f / tan(angle / 2.0f);
     projectionMatrix[2][2] = (-near1 - far1) / (near1 - far1);
     projectionMatrix[2][3] = 1.0f;
