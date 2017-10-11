@@ -31,7 +31,7 @@ int main(int argc, const char * argv[]) {
 	cube->SetProgram(engine->GetShaderManager()->GetShader("CubeShader"));
 	cube->Create();
     
-	Model* model = new Model(std::string("../res/nanosuit/nanosuit.obj"));
+	Model* model = new Model(std::string("../res/cow.obj"));
 	model->SetProgram(engine->GetShaderManager()->GetShader("CubeShader"));
     
     Plane* plane = new Plane(50, 50);
