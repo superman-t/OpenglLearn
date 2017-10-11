@@ -1,7 +1,19 @@
 #ifndef MODEL_H
 #define MODEL_H
 
+#include <string>
+#include <fstream>
+#include <sstream>
+#include <iostream>
+#include <map>
+#include <vector>
+
 #include "../IGameObject.h"
+#include "../Mesh.h"
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+#include <SOIL.h>
 
 namespace Rendering {
     namespace Models
@@ -10,6 +22,7 @@ namespace Rendering {
         {
         public:
             Model();
+			Model(std::string& path);
             ~Model();
             
             virtual void Draw() override;
@@ -26,6 +39,15 @@ namespace Rendering {
             GLuint vao;
             GLuint program;
             std::vector<GLuint> vbos;
+			std::vector<Mesh> meshes;
+			std::string directory;
+
+		private:
+			void LoadModel(std::string& path);
+			void ProcessNode(aiNode* node, const aiScene* scene);
+			Mesh ProcessMesh(aiMesh* mesh, const aiScene* scene);
+			std::vector<Texture> LoadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName);
+			GLint TextureFromFile(const char* path, std::string directory);
         };
     }
 }

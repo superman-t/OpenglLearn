@@ -70,6 +70,7 @@ void InitGlfw::Run()
 	{
 		std::cout << "Failed to run, windowHandler is null" << std::endl;
 	}
+	//glEnable(GL_CULL_FACE);
 	glPolygonMode(GL_FRONT_AND_BACK, mPolygonMode);
 	while(!glfwWindowShouldClose(mWindowHandler))
 	{

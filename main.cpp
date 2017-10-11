@@ -10,6 +10,7 @@
 #include "src/Rendering/Models/Cube.h"
 #include "src/Rendering/Models/CubeIndexed.h"
 #include "src/Rendering/Models/Plane.h"
+#include "src/Rendering/Models/Model.h"
 
 #include "src/Engine.h"
 
@@ -17,6 +18,7 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 #include <SOIL.h>
+#include <string>
 
 
 using namespace BasicEngine;
@@ -29,6 +31,8 @@ int main(int argc, const char * argv[]) {
 	cube->SetProgram(engine->GetShaderManager()->GetShader("CubeShader"));
 	cube->Create();
     
+	Model* model = new Model(std::string("../res/nanosuit/nanosuit.obj"));
+	model->SetProgram(engine->GetShaderManager()->GetShader("CubeShader"));
     
     Plane* plane = new Plane(50, 50);
     plane->SetProgram(engine->GetShaderManager()->GetShader("PlaneShader"));
@@ -37,6 +41,7 @@ int main(int argc, const char * argv[]) {
 
 	engine->GetModelsManager()->SetModel("cube", cube);
     engine->GetModelsManager()->SetModel("plane", plane);
+	engine->GetModelsManager()->SetModel("model", model);
 	engine->Run();
 
 	delete engine;

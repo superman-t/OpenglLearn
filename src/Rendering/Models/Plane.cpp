@@ -82,6 +82,6 @@ void Plane::Draw(const glm::mat4 &projectionMatrix, const glm::mat4 &viewMatrix)
     glDrawArrays(GL_TRIANGLE_STRIP, 0, verticesize);
 
     // draw lines
-	glUniform1i(glGetUniformLocation(program, "line"), 1);
-	glDrawArrays(GL_LINES, 0, verticesize);
+// 	glUniform1i(glGetUniformLocation(program, "line"), 1);
+// 	glDrawArrays(GL_LINES, 0, verticesize);
 }

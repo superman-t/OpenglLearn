@@ -44,7 +44,7 @@ include_directories( ${OPENGL_INCLUDE_DIRS} )
 
 add_executable(OpenglLearn ${OpenglLearn_src} )
 
-target_link_libraries (OpenglLearn  ${OPENGL_LIBRARIES} glfw ${GLFW_LIBRARIES} assimp )
+target_link_libraries (OpenglLearn  ${OPENGL_LIBRARIES} glfw ${GLFW_LIBRARIES} assimp SOIL)
 
 set(CMAKE_CXX_FLAGS "-std=c++11")
 

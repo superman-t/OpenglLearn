@@ -1,6 +1,6 @@
 
 #include "CubeIndexed.h"
-
+#include "glm/ext.hpp"
 using namespace Rendering;
 using namespace Models;
 
@@ -120,15 +120,11 @@ void CubeIndexed::Create()
 
 void CubeIndexed::Draw(const glm::mat4 &projectionMatrix, const glm::mat4 &viewMatrix)
 {
-    rotation = 0.01f * rotationSpeed + rotation;
-    
-    glm::vec3 rotationSin = glm::vec3(rotation.x * glm::pi<float>()/180,
-                                      rotation.y * glm::pi<float>()/180,
-                                      rotation.z * glm::pi<float>()/180);
-    
+ 
+	glm::mat4 modelMatrix(1.0f);
+	modelMatrix = glm::translate(modelMatrix, glm::vec3(0.0, 10.0f, 0.0));;
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     glUseProgram(program);
-//    glUniform3f(glGetUniformLocation(program, "rotation"),
-//                rotationSin.x, rotationSin.y, rotationSin.z);
     
     glUniformMatrix4fv(glGetUniformLocation(program, "viewMatrix"), 1, false,
                        &viewMatrix[0][0]);
@@ -136,8 +132,12 @@ void CubeIndexed::Draw(const glm::mat4 &projectionMatrix, const glm::mat4 &viewM
     glUniformMatrix4fv(glGetUniformLocation(program, "projectionMatrix"), 1, false,
                        &projectionMatrix[0][0]);
 
+	glUniformMatrix4fv(glGetUniformLocation(program, "modelMatrix"), 1, false,
+		&modelMatrix[0][0]);
+
     glBindVertexArray(vao);
     glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     
 }
 
