@@ -30,7 +30,7 @@ int main(int argc, const char * argv[]) {
 	cube->Create();
     
     
-    Plane* plane = new Plane(40, 40);
+    Plane* plane = new Plane(50, 50);
     plane->SetProgram(engine->GetShaderManager()->GetShader("PlaneShader"));
     plane->Create();
     

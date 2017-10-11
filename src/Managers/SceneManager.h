@@ -22,6 +22,7 @@ namespace Managers
         
         virtual void NotifyKeyInput(int key, int scancode, int action, int mode);
         virtual void NotifyMouseMove(double xpos, double ypos);
+		virtual void NotifyMouseButtonInput(int button, int action, int mods, double xpos, double ypos);
         virtual void NotifyScrollMove(double xoffset, double yoffset);
         
         void SetModelsManager(Managers::ModelsManager*& modelsManager);
@@ -36,6 +37,7 @@ namespace Managers
         
         CameraMovement cameraDirection;
         GLfloat lastXpos, lastYpos;
+		bool mouseRightButtonPressed;
 	};
 }
 

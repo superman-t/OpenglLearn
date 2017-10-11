@@ -42,10 +42,11 @@ void InitGlfw::Init(const WindowInfo& windowInfo, const ContextInfo& contextInfo
 
 	std::cout << "GLFW:Initialized" << std::endl;
 
-//    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	glfwSetKeyCallback(window, KeyInputCallback);
     glfwSetScrollCallback(window, ScrollCallback);
     glfwSetCursorPosCallback(window, MouseCallback);
+	glfwSetMouseButtonCallback(window, MouseButtonCallback);
 	glfwSetFramebufferSizeCallback(window, FrameSizeChangeCallback);
 	glfwSetWindowCloseCallback(window, CloseCallback);
 
@@ -156,6 +157,16 @@ void InitGlfw::MouseCallback(GLFWwindow* window, double xpos, double ypos)
     {
         mListener->NotifyMouseMove(xpos, ypos);
     }
+}
+
+void InitGlfw::MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
+{
+	if (mListener)
+	{
+		double xpos, ypos;
+		glfwGetCursorPos(window, &xpos, &ypos);
+		mListener->NotifyMouseButtonInput(button, action, mods, xpos, ypos);
+	}
 }
 
 void InitGlfw::ScrollCallback(GLFWwindow* window, double xoffset, double yoffset)

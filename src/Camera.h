@@ -67,7 +67,7 @@
         glm::mat4 GetViewMatrix()
         {
             //std::cout << position.y << " " << position.z << " " << zoom << " " << pitch << " " << yaw << std::endl;
-            return glm::lookAt(position, position+front, up);
+            return glm::lookAt(position, position + front, up);
         }
         
         void ProcessKeyboard(CameraMovement direction, GLfloat deltaTime)
@@ -77,12 +77,11 @@
                 this->position += this->front * velocity;
             if (direction == BACKWARD)
                 this->position -= this->front * velocity;
-            
             if (direction == LEFT)
                 this->position -= this->right * velocity;
             if (direction == RIGHT)
                 this->position += this->right * velocity;
-            //std::cout << position.x << "," << position.z << std::endl;
+			
         }
         
         void ProcessMouseMovement(GLfloat xoffset, GLfloat yoffset, GLboolean constrainPitch)
@@ -90,8 +89,8 @@
             xoffset *= mouseSensitivty;
             yoffset *= mouseSensitivty;
             
-            yaw += xoffset;
-            pitch += yoffset;
+            yaw += xoffset;//Æ«º½½Ç£¬ ÈÆYÖáÐý×ª
+            pitch += yoffset;//¸©Ñö½Ç£¬ÈÆXÖáÐý×ª
             
             if (constrainPitch) {
                 if (pitch > 89.0f)
@@ -105,7 +104,7 @@
         void ProcessMouseScroll(GLfloat yoffset)
         {
             if (zoom >= 0.1f && zoom <= 90.0f) {
-                zoom -= yoffset;
+                zoom -= 2*yoffset;
             }
             
             if (zoom <= 0.1f)
@@ -122,11 +121,15 @@
             front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
             front.y = sin(glm::radians(pitch));
             front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-            
+			
             this->front = front;
             
             this->right = glm::normalize(glm::cross(this->front, this->worldUp));
+
             this->up = glm::normalize(glm::cross(right, this->front));
+// 			std::cout << front.x << " " << front.y << " " << front.z << std::endl;
+// 			std::cout << right.x << " " << right.y << " " << right.z << std::endl;
+// 			std::cout << up.x << " " << up.y << " " << up.z << std::endl;
             
         }
     };

@@ -13,6 +13,7 @@ public:
 	virtual void NotifyReshape(int width, int height, int previousWidth, int previousHeight) = 0;
     virtual void NotifyKeyInput(int key, int scancode, int action, int mode){};
     virtual void NotifyMouseMove(double xpos, double ypos){};
+	virtual void NotifyMouseButtonInput(int button, int action, int mods, double xpos, double ypos) {};
     virtual void NotifyScrollMove(double xoffset, double yoffset){};
 };
 

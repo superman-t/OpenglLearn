@@ -6,12 +6,13 @@ SceneManager::SceneManager()
 	glEnable(GL_DEPTH_TEST);
     //glEnable(GL_CULL_FACE);
     
-    mCamera = new Camera(glm::vec3(0, 10, 25),
-                         glm::vec3(0, 1, 0),
-                         -91, -16);
+    mCamera = new Camera(
+		glm::vec3(0, 15, 45),//pos                         
+		glm::vec3(0, 1, 0)); //up
     
     viewMatrix = mCamera->GetViewMatrix();
     projectionMatrix = glm::perspective(glm::radians(mCamera->zoom), (float)800/600, 0.1f, 1000.0f);
+	mouseRightButtonPressed = false;
     lastXpos = 400;
     lastYpos = 300;
     
@@ -53,14 +54,7 @@ void SceneManager::NotifyEndFrame(GLfloat deltaTime)
 
 void SceneManager::NotifyReshape(int width, int height, int previousWidth, int previousHeight)
 {
-    float ar = (float)width/height;
-    float angle = 45.0f, near1 = 0.1f, far1 = 2000.0f;
-    
-    projectionMatrix[0][0] = 1.0f / (ar * tan(glm::radians(angle / 2.0f)));
-    projectionMatrix[1][1] = 1.0f / tan(angle / 2.0f);
-    projectionMatrix[2][2] = (-near1 - far1) / (near1 - far1);
-    projectionMatrix[2][3] = 1.0f;
-    projectionMatrix[3][2] = 2.0f * near1 * far1 / (near1 - far1);
+	projectionMatrix = glm::perspective(glm::radians(mCamera->zoom), (float)width / height, 0.1f, 2000.0f);
 }
 
 void SceneManager::SetModelsManager(Managers::ModelsManager*& modelsManager)
@@ -87,15 +81,29 @@ void SceneManager::NotifyKeyInput(int key, int scancode, int action, int mode)
 
 void SceneManager::NotifyMouseMove(double xpos, double ypos)
 {
-    mCamera->ProcessMouseMovement(xpos - lastXpos, lastYpos - ypos, false);
-    lastXpos = xpos;
-    lastYpos = ypos;
+	mCamera->ProcessMouseMovement(xpos - lastXpos, -ypos + lastYpos, true);
+	lastXpos = xpos;
+	lastYpos = ypos;
 }
 
+void SceneManager::NotifyMouseButtonInput(int button, int action, int mods, double xpos, double ypos)
+{
+	if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS)
+	{
+		mouseRightButtonPressed = true;
+		lastXpos = xpos;
+		lastYpos = ypos;
+		std::cout << "mouse right button pressed " << xpos << " " << ypos << std::endl;
+	}
+	else
+	{
+		mouseRightButtonPressed = false;
+	}
+		
+}
 
 void SceneManager::NotifyScrollMove(double xoffset, double yoffset)
 {
-    std::cout << "yoffset " << yoffset << std::endl;
     mCamera->ProcessMouseScroll(yoffset);
 }
 
