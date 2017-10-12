@@ -122,7 +122,7 @@ void CubeIndexed::Draw(const glm::mat4 &projectionMatrix, const glm::mat4 &viewM
 {
  
 	glm::mat4 modelMatrix(1.0f);
-	modelMatrix = glm::translate(modelMatrix, glm::vec3(0.0, 10.0f, 0.0));;
+	modelMatrix = glm::translate(modelMatrix, glm::vec3(0.0, 1.0f, 0.0));;
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     glUseProgram(program);
     

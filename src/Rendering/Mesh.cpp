@@ -19,11 +19,7 @@ void Mesh::SetupMesh()
 	glGenBuffers(1, &this->EBO);
 
 	glBindVertexArray(this->VAO);
-	// Load data into vertex buffers
 	glBindBuffer(GL_ARRAY_BUFFER, this->VBO);
-	// A great thing about structs is that their memory layout is sequential for all its items.
-	// The effect is that we can simply pass a pointer to the struct and it translates perfectly to a glm::vec3/2 array which
-	// again translates to 3/2 floats which translates to a byte array.
 	glBufferData(GL_ARRAY_BUFFER, this->vertices.size() * sizeof(Vertex), &this->vertices[0], GL_STATIC_DRAW);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->EBO);
@@ -46,7 +42,7 @@ void Mesh::SetupMesh()
 void Mesh::Draw(GLuint program, const glm::mat4 &projectionMatrix, const glm::mat4 &viewMatrix)
 {
 	glm::mat4 modelMatrix(1.0f);
-	modelMatrix = glm::translate(modelMatrix, glm::vec3(0.0, 10.0f, 0.0));;
+	modelMatrix = glm::translate(modelMatrix, glm::vec3(0.0, 1.0f, 0.0));;
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	glUseProgram(program);
 
@@ -58,6 +54,7 @@ void Mesh::Draw(GLuint program, const glm::mat4 &projectionMatrix, const glm::ma
 
 	glUniformMatrix4fv(glGetUniformLocation(program, "modelMatrix"), 1, false,
 		&modelMatrix[0][0]);
+
 
 	glBindVertexArray(this->VAO);
 	glDrawElements(GL_TRIANGLES, this->indices.size(), GL_UNSIGNED_INT, 0);

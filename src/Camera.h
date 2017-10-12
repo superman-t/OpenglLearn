@@ -67,7 +67,8 @@
         glm::mat4 GetViewMatrix()
         {
             //std::cout << position.y << " " << position.z << " " << zoom << " " << pitch << " " << yaw << std::endl;
-            return glm::lookAt(position, position + front, up);
+			glm::vec3 m(position + front);
+			return glm::lookAt(position, glm::vec3(m.x, m.y, m.z), up);
         }
         
         void ProcessKeyboard(CameraMovement direction, GLfloat deltaTime)
