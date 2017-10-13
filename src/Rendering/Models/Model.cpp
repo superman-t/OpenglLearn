@@ -145,8 +145,6 @@ Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 	return Mesh(vertices, indices, textures);
 }
 
-// Checks all material textures of a given type and loads the textures if they're not loaded yet.
-// The required info is returned as a Texture struct.
 vector<Texture> Model::LoadMaterialTextures(aiMaterial* mat, aiTextureType type, string typeName)
 {
 	vector<Texture> textures;
@@ -154,7 +152,6 @@ vector<Texture> Model::LoadMaterialTextures(aiMaterial* mat, aiTextureType type,
 	{
 		aiString str;
 		mat->GetTexture(type, i, &str);
-		// Check if texture was loaded before and if so, continue to next iteration: skip loading a new texture
 		Texture texture;
 		std::string path(str.C_Str());
 		if (path.find("materials") != string::npos)

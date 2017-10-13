@@ -29,12 +29,12 @@ SceneManager::~SceneManager()
 
 void SceneManager::NotifyBeginFrame(GLfloat deltaTime)
 {
-    mModelsManager->Update();
-    mCamera->ProcessKeyboard(cameraDirection, deltaTime);
     viewMatrix = mCamera->GetViewMatrix();
     projectionMatrix = glm::perspective(glm::radians(mCamera->zoom), (float)800/600, 0.1f, 2000.0f);
 	modelMatrix = glm::rotate(modelMatrix, .005f, glm::vec3(0, 1, 0));
-    
+
+	mCamera->ProcessKeyboard(cameraDirection, deltaTime);
+	mModelsManager->Update();
 }
 
 void SceneManager::NotifyRenderFrame(GLfloat deltaTime)

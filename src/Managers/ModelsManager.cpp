@@ -14,22 +14,7 @@ using namespace Models;
 
 ModelsManager::ModelsManager()
 {
-    //Triangle* triangle = new Triangle();
-    //triangle->SetProgram(ShaderManager::GetShader("ColorShader"));
-    //triangle->Create();
-    //gameModelList["triangle"] = triangle;
-    
-    //Quad* quad = new Quad();
-    //quad->SetProgram(ShaderManager::GetShader("ColorShader"));
-    //quad->Create();
-    //gameModelList["quad"] = quad;
-    
-// 	Cube* cube = new Cube();
-// 	cube->SetProgram(ShaderManager::GetShader("ColorShader"));
-// 	cube->Create();
-// 	gameModelList["cube"] = cube;
-    
-    
+
 }
 
 ModelsManager::~ModelsManager()

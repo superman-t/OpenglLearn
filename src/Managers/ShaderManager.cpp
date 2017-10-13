@@ -42,7 +42,7 @@ std::string ShaderManager::ReadShader(const std::string& shaderFileName)
 	{
 		std::cout << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ" << std::endl;
 	}
-    std::cout << shaderCode<< std::endl;
+    //std::cout << shaderCode<< std::endl;
 	return shaderCode;
 }
 
@@ -70,6 +70,8 @@ void ShaderManager::CreateProgram(const std::string& shaderName,
 	const std::string& vertexShaderFileName, 
 	const std::string& fragmentShaderFileName)
 {
+	if (programs.find(shaderName) != programs.end())
+		return;
 
 	GLuint vs = CreateShader(GL_VERTEX_SHADER, ReadShader(vertexShaderFileName), shaderName);
 	GLuint fs = CreateShader(GL_FRAGMENT_SHADER, ReadShader(fragmentShaderFileName), shaderName);

@@ -28,14 +28,14 @@ int main(int argc, const char * argv[]) {
 	Engine* engine = new Engine();
 
 	CubeIndexed* cube = new CubeIndexed();
-	cube->SetProgram(engine->GetShaderManager()->GetShader("CubeShader"));
+	cube->SetProgram(engine->GetShaderManager()->GetShader("cube"));
 	cube->Create();
     
 	Model* model = new Model(std::string("../res/cow.obj"));
-	model->SetProgram(engine->GetShaderManager()->GetShader("CubeShader"));
+	model->SetProgram(engine->GetShaderManager()->GetShader("cube"));
     
     Plane* plane = new Plane(50, 50);
-    plane->SetProgram(engine->GetShaderManager()->GetShader("PlaneShader"));
+    plane->SetProgram(engine->GetShaderManager()->GetShader("plane"));
     plane->Create();
     
 
