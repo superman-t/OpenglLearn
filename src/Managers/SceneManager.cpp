@@ -8,7 +8,7 @@ SceneManager::SceneManager()
     //glEnable(GL_CULL_FACE);
     
     mCamera = new Camera(
-		glm::vec3(0, 15, 45),//pos                         
+		glm::vec3(0, 150, 450),//pos                         
 		glm::vec3(0, 1, 0)); //up
     
     viewMatrix = mCamera->GetViewMatrix();

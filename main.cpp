@@ -9,7 +9,6 @@
 #include "src/Init/InitGlfw.h"
 #include "src/Rendering/Models/Cube.h"
 #include "src/Rendering/Models/CubeIndexed.h"
-#include "src/Rendering/Models/Plane.h"
 #include "src/Rendering/Models/Model.h"
 
 #include "src/Engine.h"
@@ -31,16 +30,10 @@ int main(int argc, const char * argv[]) {
 	cube->SetProgram(engine->GetShaderManager()->GetShader("cube"));
 	cube->Create();
     
-	Model* model = new Model(std::string("../res/cow.obj"));
-	model->SetProgram(engine->GetShaderManager()->GetShader("cube"));
+	Model* model = new Model(std::string("../res/crystal_maiden/crystal_maiden_econ.fbx"));
+	model->SetProgram(engine->GetShaderManager()->GetShader("texture"));
     
-    Plane* plane = new Plane(50, 50);
-    plane->SetProgram(engine->GetShaderManager()->GetShader("plane"));
-    plane->Create();
-    
-
 	engine->GetModelsManager()->SetModel("cube", cube);
-    engine->GetModelsManager()->SetModel("plane", plane);
 	engine->GetModelsManager()->SetModel("model", model);
 	engine->Run();
 

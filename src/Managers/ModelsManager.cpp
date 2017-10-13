@@ -7,14 +7,18 @@
 //
 
 #include "ModelsManager.h"
-
+#include "../Rendering/Models/Plane.h"
 using namespace Rendering;
 using namespace Managers;
 using namespace Models;
 
 ModelsManager::ModelsManager()
 {
+	Plane* plane = new Plane(50, 50);
+	plane->SetProgram(Managers::ShaderManager::GetShader("plane"));
+	plane->Create();
 
+	gameModelList["plane"] = plane;
 }
 
 ModelsManager::~ModelsManager()

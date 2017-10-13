@@ -156,6 +156,7 @@ vector<Texture> Model::LoadMaterialTextures(aiMaterial* mat, aiTextureType type,
 		std::string path(str.C_Str());
 		if (path.find("materials") != string::npos)
 			path = path.substr(path.find("materials"), path.length());
+		std::cout << path << std::endl;
 		texture.id = TextureFromFile(path.c_str(), this->directory);
 		texture.type = typeName;
 		texture.path = str;
@@ -173,8 +174,9 @@ GLint Model::TextureFromFile(const char* path, string directory)
 	GLuint textureID;
 	glGenTextures(1, &textureID);
 	int width, height;
-	unsigned char* image = SOIL_load_image(filename.c_str(), &width, &height, 0, SOIL_LOAD_RGB);
-	std::cout << image;
+	int comp;
+	unsigned char* image = SOIL_load_image(filename.c_str(), &width, &height, &comp, SOIL_LOAD_RGB);
+	
 	// Assign texture to ID
 	glBindTexture(GL_TEXTURE_2D, textureID);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);

@@ -42,7 +42,7 @@ void InitGlfw::Init(const WindowInfo& windowInfo, const ContextInfo& contextInfo
 
 	std::cout << "GLFW:Initialized" << std::endl;
 
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	//glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	glfwSetKeyCallback(window, KeyInputCallback);
     glfwSetScrollCallback(window, ScrollCallback);
     glfwSetCursorPosCallback(window, MouseCallback);
