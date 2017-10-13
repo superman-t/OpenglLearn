@@ -34,10 +34,10 @@ void Model::Draw()
     
 }
 
-void Model::Draw(const glm::mat4 &projectionMatrix, const glm::mat4 &viewMatrix)
+void Model::Draw(const glm::mat4 &projectionMatrix, const glm::mat4 &viewMatrix, const glm::mat4& modelMatrix)
 {
 	for (GLuint i = 0; i < this->meshes.size(); i++)
-		this->meshes[i].Draw(program, projectionMatrix, viewMatrix);
+		this->meshes[i].Draw(program, projectionMatrix, viewMatrix, modelMatrix);
 }
 
 void Model::Destroy()

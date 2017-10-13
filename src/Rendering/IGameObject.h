@@ -13,7 +13,8 @@ namespace Rendering
         
         virtual void Draw() = 0;
         virtual void Draw(const glm::mat4& projectionMatrix,
-                          const glm::mat4& viewMatrix)=0;
+                          const glm::mat4& viewMatrix,
+						  const glm::mat4& modelMatrix)=0;
         virtual void Update() = 0;
         virtual void SetProgram(GLuint shader) = 0;
         virtual void Destroy() = 0;

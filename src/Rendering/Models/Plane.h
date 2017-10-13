@@ -16,7 +16,8 @@ namespace Rendering {
 			void SetSize(int _width, int height);
 
             virtual void Update() override final;
-            virtual void Draw(const glm::mat4 &projectionMatrix, const glm::mat4 &viewMatrix) override final;
+            virtual void Draw(const glm::mat4 &projectionMatrix, const glm::mat4 &viewMatrix,
+							const glm::mat4& modelMatrix) override final;
             
         private:
             int verticesize;

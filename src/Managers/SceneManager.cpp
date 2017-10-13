@@ -1,4 +1,5 @@
 #include "SceneManager.h"
+#include <glm/gtc/functions.hpp>
 using namespace Managers;
 
 SceneManager::SceneManager()
@@ -12,6 +13,7 @@ SceneManager::SceneManager()
     
     viewMatrix = mCamera->GetViewMatrix();
     projectionMatrix = glm::perspective(glm::radians(mCamera->zoom), (float)800/600, 0.1f, 1000.0f);
+	modelMatrix = glm::translate(modelMatrix, glm::vec3(0.0, 1.0, 0.0));
 	mouseRightButtonPressed = false;
     lastXpos = 400;
     lastYpos = 300;
@@ -31,6 +33,7 @@ void SceneManager::NotifyBeginFrame(GLfloat deltaTime)
     mCamera->ProcessKeyboard(cameraDirection, deltaTime);
     viewMatrix = mCamera->GetViewMatrix();
     projectionMatrix = glm::perspective(glm::radians(mCamera->zoom), (float)800/600, 0.1f, 2000.0f);
+	modelMatrix = glm::rotate(modelMatrix, .005f, glm::vec3(0, 1, 0));
     
 }
 
@@ -43,7 +46,7 @@ void SceneManager::NotifyRenderFrame(GLfloat deltaTime)
     //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     
     mModelsManager->Draw();
-    mModelsManager->Draw(projectionMatrix, viewMatrix);
+    mModelsManager->Draw(projectionMatrix, viewMatrix, modelMatrix);
 
 }
 

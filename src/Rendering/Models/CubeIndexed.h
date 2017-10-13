@@ -20,7 +20,7 @@ namespace Rendering
             void Create();
             
             virtual void Draw(const glm::mat4& projectionMatrix,
-                              const glm::mat4& viewMatrix) override final;
+                              const glm::mat4& viewMatrix, const glm::mat4& modelMatrix) override final;
             virtual void Update() override final;
             
         private:

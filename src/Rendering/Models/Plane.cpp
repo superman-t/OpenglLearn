@@ -68,7 +68,7 @@ void Plane::Update()
     
 }
 
-void Plane::Draw(const glm::mat4 &projectionMatrix, const glm::mat4 &viewMatrix)
+void Plane::Draw(const glm::mat4 &projectionMatrix, const glm::mat4 &viewMatrix, const glm::mat4& modelMatrix)
 {
 
     glUseProgram(program);

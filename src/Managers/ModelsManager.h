@@ -29,7 +29,7 @@ namespace Managers
         ~ModelsManager();
         
         void Draw();
-        void Draw(glm::mat4 projectionMatrix, glm::mat4 viewMatrix);
+        void Draw(const glm::mat4& projectionMatrix, const glm::mat4& viewMatrix, const glm::mat4& modelMatrix);
         void Update();
         
         void DeleteModel(const std::string& modelName);

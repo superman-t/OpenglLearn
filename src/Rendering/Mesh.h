@@ -19,7 +19,7 @@ namespace Rendering
 		Mesh(std::vector<Vertex> vertices, std::vector<GLuint> indices, std::vector<Texture> textures);
 		// Render the mesh
 		void Draw(GLuint program, const glm::mat4& projectionMatrix,
-			const glm::mat4& viewMatrix);
+			const glm::mat4& viewMatrix, const glm::mat4& modelMatrix);
 	private:
 		/*  Render data  */
 		GLuint VAO, VBO, EBO;

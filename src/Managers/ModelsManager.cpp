@@ -92,11 +92,11 @@ void ModelsManager::Draw()
     }
 }
 
-void ModelsManager::Draw(glm::mat4 projectionMatrix, glm::mat4 viewMatrix)
+void ModelsManager::Draw(const glm::mat4& projectionMatrix, const glm::mat4& viewMatrix, const glm::mat4& modelMatrix)
 {
     for(auto model: gameModelList)
     {
-        model.second->Draw(projectionMatrix, viewMatrix);
+        model.second->Draw(projectionMatrix, viewMatrix, modelMatrix);
     }
 }
 

@@ -27,7 +27,8 @@ namespace Rendering {
             
             virtual void Draw() override;
             virtual void Draw(const glm::mat4& projectionMatrix,
-                              const glm::mat4& viewMatrix) override;
+                              const glm::mat4& viewMatrix,
+							  const glm::mat4& modelMatrix) override;
             virtual void Update() override;
             virtual void SetProgram(GLuint program) override;
             virtual void Destroy() override;

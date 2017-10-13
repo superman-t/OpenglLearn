@@ -140,7 +140,7 @@ void Cube::Create()
     rotation = glm::vec3(0.0, 0.0, 0.0);
 }
 
-void Cube::Draw(const glm::mat4 &projectionMatrix, const glm::mat4 &viewMatrix)
+void Cube::Draw(const glm::mat4 &projectionMatrix, const glm::mat4 &viewMatrix, const glm::mat4& modelMatrix)
 {
     //glDisable(GL_CULL_FACE);
     rotation = 0.01f * rotationSpeed + rotation;

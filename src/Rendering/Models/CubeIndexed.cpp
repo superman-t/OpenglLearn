@@ -118,11 +118,8 @@ void CubeIndexed::Create()
     
 }
 
-void CubeIndexed::Draw(const glm::mat4 &projectionMatrix, const glm::mat4 &viewMatrix)
+void CubeIndexed::Draw(const glm::mat4 &projectionMatrix, const glm::mat4 &viewMatrix, const glm::mat4& modelMatrix)
 {
- 
-	glm::mat4 modelMatrix(1.0f);
-	modelMatrix = glm::translate(modelMatrix, glm::vec3(0.0, 1.0f, 0.0));;
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     glUseProgram(program);
     

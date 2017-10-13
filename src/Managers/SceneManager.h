@@ -34,6 +34,7 @@ namespace Managers
         
         glm::mat4 projectionMatrix;
         glm::mat4 viewMatrix;
+		glm::mat4 modelMatrix;
         
         CameraMovement cameraDirection;
         GLfloat lastXpos, lastYpos;
