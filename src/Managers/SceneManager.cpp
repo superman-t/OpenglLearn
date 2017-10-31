@@ -14,6 +14,7 @@ SceneManager::SceneManager()
     viewMatrix = mCamera->GetViewMatrix();
     projectionMatrix = glm::perspective(glm::radians(mCamera->zoom), (float)800/600, 0.1f, 1000.0f);
 	modelMatrix = glm::translate(modelMatrix, glm::vec3(0.0, 1.0, 0.0));
+	modelMatrix = glm::scale(modelMatrix, glm::vec3(1, 0.5, 1));
 	mouseRightButtonPressed = false;
     lastXpos = 400;
     lastYpos = 300;
@@ -31,6 +32,8 @@ void SceneManager::NotifyBeginFrame(GLfloat deltaTime)
 {
     viewMatrix = mCamera->GetViewMatrix();
     projectionMatrix = glm::perspective(glm::radians(mCamera->zoom), (float)800/600, 0.1f, 2000.0f);
+	//modelMatrix = glm::translate(modelMatrix, glm::vec3(0.0, 0.5, 0.0));
+	
 	modelMatrix = glm::rotate(modelMatrix, .005f, glm::vec3(0, 1, 0));
 
 	mCamera->ProcessKeyboard(cameraDirection, deltaTime);

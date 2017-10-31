@@ -74,9 +74,9 @@ void InitGlfw::Run()
 	glPolygonMode(GL_FRONT_AND_BACK, mPolygonMode);
 	while(!glfwWindowShouldClose(mWindowHandler))
 	{
-		glfwPollEvents();
 		Render(deltaTime);
         CalculateDeltaTime();
+		glfwPollEvents();
 	}
 }
 

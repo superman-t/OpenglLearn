@@ -44,6 +44,7 @@ namespace Rendering {
 			std::string directory;
 
 		private:
+			std::vector<Texture> loadedTextures;
 			void LoadModel(std::string& path);
 			void ProcessNode(aiNode* node, const aiScene* scene);
 			Mesh ProcessMesh(aiMesh* mesh, const aiScene* scene);

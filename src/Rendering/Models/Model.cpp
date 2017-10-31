@@ -152,15 +152,26 @@ vector<Texture> Model::LoadMaterialTextures(aiMaterial* mat, aiTextureType type,
 	{
 		aiString str;
 		mat->GetTexture(type, i, &str);
+		bool skip = false;
+		//std::cout << str.C_Str() << std::endl;
+		for (int i = 0; i < loadedTextures.size(); ++i)
+		{
+			if (std::strcmp(loadedTextures[i].path.C_Str(), str.C_Str()) == 0)
+			{
+				skip = true;
+				textures.push_back(loadedTextures[i]);
+				break;
+			}
+		}
 		Texture texture;
 		std::string path(str.C_Str());
 		if (path.find("materials") != string::npos)
 			path = path.substr(path.find("materials"), path.length());
-		std::cout << path << std::endl;
 		texture.id = TextureFromFile(path.c_str(), this->directory);
 		texture.type = typeName;
 		texture.path = str;
 		textures.push_back(texture);
+		loadedTextures.push_back(texture);
 	}
 	return textures;
 }
