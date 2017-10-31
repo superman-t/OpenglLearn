@@ -14,7 +14,7 @@ SceneManager::SceneManager()
     viewMatrix = mCamera->GetViewMatrix();
     projectionMatrix = glm::perspective(glm::radians(mCamera->zoom), (float)800/600, 0.1f, 1000.0f);
 	modelMatrix = glm::translate(modelMatrix, glm::vec3(0.0, 1.0, 0.0));
-	modelMatrix = glm::scale(modelMatrix, glm::vec3(1, 0.5, 1));
+	//modelMatrix = glm::scale(modelMatrix, glm::vec3(1, 1, 1));
 	mouseRightButtonPressed = false;
     lastXpos = 400;
     lastYpos = 300;
@@ -34,7 +34,7 @@ void SceneManager::NotifyBeginFrame(GLfloat deltaTime)
     projectionMatrix = glm::perspective(glm::radians(mCamera->zoom), (float)800/600, 0.1f, 2000.0f);
 	//modelMatrix = glm::translate(modelMatrix, glm::vec3(0.0, 0.5, 0.0));
 	
-	modelMatrix = glm::rotate(modelMatrix, .005f, glm::vec3(0, 1, 0));
+	//modelMatrix = glm::rotate(modelMatrix, .005f, glm::vec3(0, 1, 0));
 
 	mCamera->ProcessKeyboard(cameraDirection, deltaTime);
 	mModelsManager->Update();
@@ -87,7 +87,15 @@ void SceneManager::NotifyKeyInput(int key, int scancode, int action, int mode)
 
 void SceneManager::NotifyMouseMove(double xpos, double ypos)
 {
-	mCamera->ProcessMouseMovement(xpos - lastXpos, -ypos + lastYpos, true);
+	if (mouseRightButtonPressed)
+	{
+		modelMatrix = glm::rotate(modelMatrix, (float)(xpos - lastXpos)/180, glm::vec3(0, 1, 0));
+	}
+	else
+	{
+		mCamera->ProcessMouseMovement(xpos - lastXpos, -ypos + lastYpos, true);
+	}
+	
 	lastXpos = xpos;
 	lastYpos = ypos;
 }
@@ -99,7 +107,8 @@ void SceneManager::NotifyMouseButtonInput(int button, int action, int mods, doub
 		mouseRightButtonPressed = true;
 		lastXpos = xpos;
 		lastYpos = ypos;
-		std::cout << "mouse right button pressed " << xpos << " " << ypos << std::endl;
+		
+		//std::cout << "mouse right button pressed " << xpos << " " << ypos << std::endl;
 	}
 	else
 	{
