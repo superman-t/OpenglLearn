@@ -47,6 +47,7 @@ namespace Init {
 		static void KeyInputCallback(GLFWwindow* window, int key, int scancode, int action, int mode);
 		static void PrintOpenglInfo(const WindowInfo& winndowInfo, const ContextInfo& contextInfo);
 		static void DisplayCallback(GLfloat deltaTime);
+		static void SetOpenglModes();
 	};
 }
 

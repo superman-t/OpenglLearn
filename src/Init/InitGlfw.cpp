@@ -30,7 +30,7 @@ void InitGlfw::Init(const WindowInfo& windowInfo, const ContextInfo& contextInfo
 	}
 
 #ifdef TARGET_PLATFORM_MAC
-	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // uncomment this statement to fix compilation on OS X
+	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // fix compilation on OS X
 #endif
 
 	GLFWwindow* window = glfwCreateWindow(windowInfo.width, windowInfo.height, windowInfo.name.c_str(), nullptr, nullptr);
@@ -69,15 +69,26 @@ void InitGlfw::Run()
 	if (mWindowHandler == nullptr)
 	{
 		std::cout << "Failed to run, windowHandler is null" << std::endl;
+		return;
 	}
-	//glEnable(GL_CULL_FACE);
-	glPolygonMode(GL_FRONT_AND_BACK, mPolygonMode);
+	
+	SetOpenglModes();
+
 	while(!glfwWindowShouldClose(mWindowHandler))
 	{
 		Render(deltaTime);
         CalculateDeltaTime();
 		glfwPollEvents();
 	}
+}
+
+void InitGlfw::SetOpenglModes()
+{
+	//glEnable(GL_CULL_FACE);
+	//glEnable(GL_BLEND);
+	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(GL_DEPTH_TEST);
+	glPolygonMode(GL_FRONT_AND_BACK, mPolygonMode);
 }
 
 void InitGlfw::CalculateDeltaTime()

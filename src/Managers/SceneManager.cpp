@@ -4,8 +4,7 @@ using namespace Managers;
 
 SceneManager::SceneManager()
 {
-	glEnable(GL_DEPTH_TEST);
-    //glEnable(GL_CULL_FACE);
+	
     
     mCamera = new Camera(
 		glm::vec3(0, 150, 450),//pos                         
@@ -16,6 +15,7 @@ SceneManager::SceneManager()
 	modelMatrix = glm::translate(modelMatrix, glm::vec3(0.0, 1.0, 0.0));
 	//modelMatrix = glm::scale(modelMatrix, glm::vec3(1, 1, 1));
 	mouseRightButtonPressed = false;
+	mouseLeftButtonPressed = false;
     lastXpos = 400;
     lastYpos = 300;
     
@@ -44,9 +44,6 @@ void SceneManager::NotifyRenderFrame(GLfloat deltaTime)
 {
 	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);//状态设置函数
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);//状态应用函数
-    
-    //glEnable(GL_BLEND);
-    //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     
     mModelsManager->Draw();
     mModelsManager->Draw(projectionMatrix, viewMatrix, modelMatrix);
@@ -91,10 +88,9 @@ void SceneManager::NotifyMouseMove(double xpos, double ypos)
 	{
 		modelMatrix = glm::rotate(modelMatrix, (float)(xpos - lastXpos)/180, glm::vec3(0, 1, 0));
 	}
-	else
-	{
-		mCamera->ProcessMouseMovement(xpos - lastXpos, -ypos + lastYpos, true);
-	}
+	if (mouseLeftButtonPressed)
+		mCamera->ProcessMouseMovement(0, -ypos + lastYpos, true);
+	
 	
 	lastXpos = xpos;
 	lastYpos = ypos;
@@ -105,15 +101,23 @@ void SceneManager::NotifyMouseButtonInput(int button, int action, int mods, doub
 	if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS)
 	{
 		mouseRightButtonPressed = true;
-		lastXpos = xpos;
-		lastYpos = ypos;
-		
-		//std::cout << "mouse right button pressed " << xpos << " " << ypos << std::endl;
 	}
 	else
 	{
 		mouseRightButtonPressed = false;
 	}
+
+	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
+	{
+		mouseLeftButtonPressed = true;
+	}
+	else
+	{
+		mouseLeftButtonPressed = false;
+	}
+
+	lastXpos = xpos;
+	lastYpos = ypos;
 		
 }
 

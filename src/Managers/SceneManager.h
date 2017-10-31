@@ -39,6 +39,7 @@ namespace Managers
         CameraMovement cameraDirection;
         GLfloat lastXpos, lastYpos;
 		bool mouseRightButtonPressed;
+		bool mouseLeftButtonPressed;
 	};
 }
 
