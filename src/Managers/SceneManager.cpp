@@ -4,8 +4,6 @@ using namespace Managers;
 
 SceneManager::SceneManager()
 {
-	
-    
     mCamera = new Camera(
 		glm::vec3(0, 150, 450),//pos                         
 		glm::vec3(0, 1, 0)); //up

@@ -39,7 +39,8 @@ namespace Managers
         
         const IGameObject& GetModelNDC(const std::string& modelName)const;
         
-        void SetModel(const std::string& gameObjectName, IGameObject* gameObject);
+        void AddModel(const std::string& gameObjectName, IGameObject* gameObject);
+		void AddModelNDC(const std::string& gameObjectName, IGameObject* gameObject);
         
     private:
         std::map<std::string, IGameObject*> gameModelList;

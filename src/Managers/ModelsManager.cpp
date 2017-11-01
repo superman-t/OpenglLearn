@@ -89,7 +89,12 @@ void ModelsManager::Draw(const glm::mat4& projectionMatrix, const glm::mat4& vie
     }
 }
 
-void ModelsManager::SetModel(const std::string &gameObjectName, Rendering::IGameObject *gameObject)
+void ModelsManager::AddModel(const std::string &gameObjectName, Rendering::IGameObject *gameObject)
 {
     gameModelList[gameObjectName] = gameObject;
+}
+
+void ModelsManager::AddModelNDC(const std::string &gameObjectName, IGameObject* gameObject)
+{
+	gameModelListNDC[gameObjectName] = gameObject;
 }

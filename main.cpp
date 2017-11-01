@@ -30,11 +30,11 @@ int main(int argc, const char * argv[]) {
 	cube->SetProgram(engine->GetShaderManager()->GetShader("cube"));
 	cube->Create();
     
-	Model* model = new Model(std::string("../res/crystal_maiden/crystal_maiden_econ.fbx"));
-	model->SetProgram(engine->GetShaderManager()->GetShader("texture"));
+	Model* model = new Model(std::string("../res/suzanne.obj"));
+	model->SetProgram(engine->GetShaderManager()->GetShader("cube"));
     
-	engine->GetModelsManager()->SetModel("cube", cube);
-	engine->GetModelsManager()->SetModel("model", model);
+	engine->GetModelsManager()->AddModel("cube", cube);
+	engine->GetModelsManager()->AddModel("model", model);
 	engine->Run();
 
 	delete engine;

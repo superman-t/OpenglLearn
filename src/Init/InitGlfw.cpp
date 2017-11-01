@@ -197,7 +197,7 @@ void InitGlfw::PrintOpenglInfo(const WindowInfo& windowInfo, const ContextInfo& 
 	unsigned char* version = (unsigned char*)glGetString(GL_VERSION);
 
 	std::cout << "**************************************************" << std::endl;
-	std::cout << "GLFW:Initialize" << std::endl;
+	std::cout << "GLFW:InitializeInfo" << std::endl;
 	std::cout << "GLFW:\tVender: " << vender << std::endl;
 	std::cout << "GLFW:\tRender: " << render << std::endl;
 	std::cout << "GLFW:\tOpengl Version: " << version << std::endl;

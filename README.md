@@ -1,2 +1,2 @@
-# OpenglLearn
-Opengl学习之路
+# Simple Opengl Game Engine
+

@@ -104,14 +104,15 @@
         
         void ProcessMouseScroll(GLfloat yoffset)
         {
-            if (zoom >= 0.1f && zoom <= 90.0f) {
-                zoom -= 2*yoffset;
+            if (zoom >= 0.1f && zoom <= 170.0f) {
+                zoom -= yoffset;
             }
             
             if (zoom <= 0.1f)
                 zoom = 0.1f;
-            if (zoom >= 90.0f)
-                zoom = 90.0f;
+            if (zoom >= 170.0f)
+                zoom = 170.0f;
+			//std::cout << zoom << std::endl;
         }
         
     private:
