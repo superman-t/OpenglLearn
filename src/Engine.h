@@ -3,7 +3,6 @@
 
 #include "Init/InitGlfw.h"
 #include "Managers/SceneManager.h"
-#include "Managers/ShaderManager.h"
 #include "Managers/ModelsManager.h"
 namespace BasicEngine
 {
@@ -17,12 +16,10 @@ namespace BasicEngine
 		void Run();
 		Managers::SceneManager* GetSceneManager() const;
 		Managers::ModelsManager* GetModelsManager() const;
-		Managers::ShaderManager* GetShaderManager() const;
 
 	
 	private:
 		Managers::SceneManager* mSceneManager;
-		Managers::ShaderManager* mShaderManager;
 		Managers::ModelsManager* mModelsManager;
 
 	};

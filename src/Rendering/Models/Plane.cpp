@@ -70,7 +70,7 @@ void Plane::Update()
 
 void Plane::Draw(const glm::mat4 &projectionMatrix, const glm::mat4 &viewMatrix, const glm::mat4& modelMatrix)
 {
-
+	Create();
     glUseProgram(program);
     glUniformMatrix4fv(glGetUniformLocation(program, "viewMatrix"), 1, false,
                        &viewMatrix[0][0]);
@@ -80,8 +80,9 @@ void Plane::Draw(const glm::mat4 &projectionMatrix, const glm::mat4 &viewMatrix,
 	glUniform1i(glGetUniformLocation(program, "line"), 0);
     glBindVertexArray(vao);
     glDrawArrays(GL_TRIANGLE_STRIP, 0, verticesize);
-
+	glDisableVertexAttribArray(0);
+	glDisableVertexAttribArray(1);
     // draw lines
-// 	glUniform1i(glGetUniformLocation(program, "line"), 1);
-// 	glDrawArrays(GL_LINES, 0, verticesize);
+ 	//glUniform1i(glGetUniformLocation(program, "line"), 1);
+ 	//glDrawArrays(GL_LINES, 0, verticesize);
 }

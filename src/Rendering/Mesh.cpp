@@ -45,7 +45,7 @@ void Mesh::SetupMesh()
 void Mesh::Draw(GLuint program, const glm::mat4 &projectionMatrix, const glm::mat4 &viewMatrix, const glm::mat4& modelMatrix)
 {
 	
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	glUseProgram(program);
 
 	glUniformMatrix4fv(glGetUniformLocation(program, "viewMatrix"), 1, false,
@@ -86,5 +86,5 @@ void Mesh::Draw(GLuint program, const glm::mat4 &projectionMatrix, const glm::ma
 	glBindVertexArray(this->VAO);
 	glDrawElements(GL_TRIANGLES, this->indices.size(), GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }

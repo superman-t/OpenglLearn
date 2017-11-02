@@ -5,6 +5,7 @@
 #include "ModelsManager.h"
 #include "../Camera.h"
 #include "../Init/IListener.h"
+#include "../Rendering/Label.h"
 
 
 namespace Managers
@@ -25,12 +26,13 @@ namespace Managers
 		virtual void NotifyMouseButtonInput(int button, int action, int mods, double xpos, double ypos);
         virtual void NotifyScrollMove(double xoffset, double yoffset);
         
-        void SetModelsManager(Managers::ModelsManager*& modelsManager);
+        void SetModelsManager(Managers::ModelsManager* modelsManager);
 
 	private:
 		ShaderManager* mShaderManager;
         ModelsManager* mModelsManager;
         Camera* mCamera;
+		Label* fpsLabel;
         
         glm::mat4 projectionMatrix;
         glm::mat4 viewMatrix;
@@ -40,6 +42,7 @@ namespace Managers
         GLfloat lastXpos, lastYpos;
 		bool mouseRightButtonPressed;
 		bool mouseLeftButtonPressed;
+		GLfloat fpsInterval;
 	};
 }
 

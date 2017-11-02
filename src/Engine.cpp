@@ -2,8 +2,6 @@
 
 #include <fstream>
 #include <iostream>
-#include <experimental/filesystem>
-namespace fs = std::experimental::filesystem;
 
 using namespace BasicEngine;
 using namespace Init;
@@ -18,8 +16,6 @@ Engine::~Engine()
 {
 	if (mModelsManager)
 		delete mModelsManager;
-	if (mShaderManager)
-		delete mShaderManager;
 	if (mSceneManager)
 		delete mSceneManager;
 	
@@ -47,33 +43,9 @@ bool Engine::Init()
 		return false;
 	}
 	
-	mShaderManager = new ShaderManager();
-#ifdef TARGET_COMPILE_XCODE
-	std::string shaderPath("../../Shaders");
-#else
-	std::string shaderPath("../Shaders");
-#endif
-	std::string filename, path;
-	for (fs::recursive_directory_iterator p(shaderPath); p != fs::recursive_directory_iterator{}; ++p)
-	{
-		filename = p->path().string();
-		int start = filename.find_last_of('\\');
-		int end = filename.find_last_of(".");
-		path = filename.substr(0, start);
-		filename = filename.substr(start + 1, end - 1 - start);
-		mShaderManager->CreateProgram(filename, path + "/" + filename + ".vs", path + "/" + filename + ".fs");
-	}
-
-	if (mShaderManager)
-	{
-		mModelsManager = new ModelsManager();
-		mSceneManager->SetModelsManager(mModelsManager);
-	}
-	else
-	{
-		return false;
-	}
-
+	mModelsManager = new ModelsManager();
+	mSceneManager->SetModelsManager(mModelsManager);
+	
 	return true;
 }
 
@@ -85,11 +57,6 @@ void Engine::Run()
 SceneManager* Engine::GetSceneManager() const
 {
 	return mSceneManager;
-}
-
-ShaderManager* Engine::GetShaderManager() const
-{
-	return mShaderManager;
 }
 
 ModelsManager* Engine::GetModelsManager() const

@@ -14,11 +14,13 @@ SceneManager::SceneManager()
 	//modelMatrix = glm::scale(modelMatrix, glm::vec3(1, 1, 1));
 	mouseRightButtonPressed = false;
 	mouseLeftButtonPressed = false;
+	fpsInterval = 1 / 60.0;
     lastXpos = 400;
     lastYpos = 300;
     
     cameraDirection = UNKNOW;
-	
+	fpsLabel = new Label(std::string("60.0"), 20, glm::vec2(30, 100));
+	fpsLabel->SetProgram(ShaderManager::getInstance()->GetShader("text"));
 }
 
 SceneManager::~SceneManager()
@@ -36,6 +38,15 @@ void SceneManager::NotifyBeginFrame(GLfloat deltaTime)
 
 	mCamera->ProcessKeyboard(cameraDirection, deltaTime);
 	mModelsManager->Update();
+	fpsInterval -= deltaTime;
+
+	if (fpsInterval < 0.0) {
+		fpsInterval = 1 / 60.0;
+		char text[256];
+		sprintf(text, "fps: %.1f", 1.0 / deltaTime);
+		fpsLabel->SetString(std::string(text));
+	}
+	
 }
 
 void SceneManager::NotifyRenderFrame(GLfloat deltaTime)
@@ -43,9 +54,9 @@ void SceneManager::NotifyRenderFrame(GLfloat deltaTime)
 	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);//状态设置函数
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);//状态应用函数
     
-    mModelsManager->Draw();
+    
     mModelsManager->Draw(projectionMatrix, viewMatrix, modelMatrix);
-
+	mModelsManager->Draw();
 }
 
 void SceneManager::NotifyEndFrame(GLfloat deltaTime)
@@ -58,9 +69,10 @@ void SceneManager::NotifyReshape(int width, int height, int previousWidth, int p
 	projectionMatrix = glm::perspective(glm::radians(mCamera->zoom), (float)width / height, 0.1f, 2000.0f);
 }
 
-void SceneManager::SetModelsManager(Managers::ModelsManager*& modelsManager)
+void SceneManager::SetModelsManager(Managers::ModelsManager* modelsManager)
 {
     mModelsManager = modelsManager;
+	mModelsManager->AddModelNDC("fpsLabel", fpsLabel);
 }
 
 void SceneManager::NotifyKeyInput(int key, int scancode, int action, int mode)

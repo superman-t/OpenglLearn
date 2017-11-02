@@ -10,6 +10,7 @@
 #include "src/Rendering/Models/Cube.h"
 #include "src/Rendering/Models/CubeIndexed.h"
 #include "src/Rendering/Models/Model.h"
+#include "src/Rendering/Label.h"
 
 #include "src/Engine.h"
 
@@ -18,21 +19,26 @@
 #include <assimp/postprocess.h>
 #include <SOIL.h>
 #include <string>
+#include "src/Managers/ShaderManager.h"
 
 
 using namespace BasicEngine;
 using namespace Rendering;
 using namespace Models;
+using namespace Managers;
 int main(int argc, const char * argv[]) {
 	Engine* engine = new Engine();
 
 	CubeIndexed* cube = new CubeIndexed();
-	cube->SetProgram(engine->GetShaderManager()->GetShader("cube"));
+	cube->SetProgram(ShaderManager::getInstance()->GetShader("cube"));
 	cube->Create();
-    
-	Model* model = new Model(std::string("../res/suzanne.obj"));
-	model->SetProgram(engine->GetShaderManager()->GetShader("cube"));
-    
+
+
+	Model* model = new Model(std::string("../res/crystal_maiden/crystal_maiden_econ.fbx"));
+
+	//Model* model = new Model(std::string("../res/suzanne.obj"));
+	model->SetProgram(ShaderManager::getInstance()->GetShader("texture"));
+  
 	engine->GetModelsManager()->AddModel("cube", cube);
 	engine->GetModelsManager()->AddModel("model", model);
 	engine->Run();

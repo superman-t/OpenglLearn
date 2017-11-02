@@ -9,6 +9,8 @@
 #include <iostream>
 #include <cmath>
 #include <map>
+#include <experimental/filesystem>
+namespace fs = std::experimental::filesystem;
 
 
 namespace Managers {
@@ -18,14 +20,16 @@ namespace Managers {
 	{
 
 	public:
+
 		ShaderManager();
 		~ShaderManager();
-		 void CreateProgram(const std::string& shaderName, 
+		void CreateProgram(const std::string& shaderName, 
 							const std::string& vertexShaderFileName,
 							const std::string& fragmentShaderFileName);
-		 static const GLuint GetShader(const std::string& shaderName);
-
+		static const GLuint GetShader(const std::string& shaderName);
+		static ShaderManager* getInstance();
 	private:
+		void Init();
 		std::string ReadShader(const std::string& shaderFileName);
 		GLuint CreateShader(GLuint shaderType, 
 							const std::string& shaderSource,

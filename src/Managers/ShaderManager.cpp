@@ -3,9 +3,41 @@
 using namespace Managers;
 
 std::map<std::string, GLuint> ShaderManager::programs;
-
+static ShaderManager* shaderManagerInstance = nullptr;
 ShaderManager::ShaderManager()
 {
+
+}
+
+ShaderManager* ShaderManager::getInstance()
+{
+	if (!shaderManagerInstance)
+	{
+		shaderManagerInstance = new ShaderManager();
+		shaderManagerInstance->Init();
+	}
+	return shaderManagerInstance;
+}
+
+void ShaderManager::Init()
+{
+#ifdef TARGET_COMPILE_XCODE
+	std::string shaderPath("../../Shaders");
+#else
+	std::string shaderPath("../Shaders");
+#endif
+	std::string filename, path;
+	for (fs::recursive_directory_iterator p(shaderPath); p != fs::recursive_directory_iterator{}; ++p)
+	{
+		filename = p->path().string();
+		
+		int start = filename.find_last_of('\\');
+		int end = filename.find_last_of(".");
+		path = filename.substr(0, start);
+		filename = filename.substr(start + 1, end - 1 - start);
+		//std::cout << path + "/" + filename << std::endl;
+		CreateProgram(filename, path + "/" + filename + ".vs", path + "/" + filename + ".fs");
+	}
 
 }
 

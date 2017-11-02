@@ -15,9 +15,7 @@ using namespace Models;
 ModelsManager::ModelsManager()
 {
 	Plane* plane = new Plane(50, 50);
-	plane->SetProgram(Managers::ShaderManager::GetShader("plane"));
-	plane->Create();
-
+	plane->SetProgram(ShaderManager::getInstance()->GetShader("plane"));
 	gameModelList["plane"] = plane;
 }
 
