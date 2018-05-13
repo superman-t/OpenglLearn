@@ -26,18 +26,34 @@ void ShaderManager::Init()
 #else
 	std::string shaderPath("../Shaders");
 #endif
-	std::string filename, path;
-	for (fs::recursive_directory_iterator p(shaderPath); p != fs::recursive_directory_iterator{}; ++p)
+#ifdef WIN32
+	 std::string filename, path;
+	 for (fs::recursive_directory_iterator p(shaderPath); p != fs::recursive_directory_iterator{}; ++p)
+	 {
+	 	filename = p->path().string();
+ 
+	 	int start = filename.find_last_of('\\');
+	 	int end = filename.find_last_of(".");
+	 	path = filename.substr(0, start);
+	 	filename = filename.substr(start + 1, end - 1 - start);
+	 	//std::cout << path + "/" + filename << std::endl;
+	 	CreateProgram(filename, path + "/" + filename + ".vs", path + "/" + filename + ".fs");
+	 }
+	
+#endif // WIN32
+
+#ifdef TARGET_PLATFORM_MAC || TARGET_PLATFORM_IOS
+	std::vector<std::string> shaderNames = { "cube", "plane", "texture", "text" };
+	for (int i = 0; i < shaderNames.size(); ++i)
 	{
-		filename = p->path().string();
-		
-		int start = filename.find_last_of('\\');
-		int end = filename.find_last_of(".");
-		path = filename.substr(0, start);
-		filename = filename.substr(start + 1, end - 1 - start);
-		//std::cout << path + "/" + filename << std::endl;
-		CreateProgram(filename, path + "/" + filename + ".vs", path + "/" + filename + ".fs");
+		std::string filename = shaderNames[i];
+		CreateProgram(filename, shaderPath + "/" + filename + ".vs", shaderPath + "/" + filename + ".fs");
 	}
+#endif // TARGET_PLATFORM_MAC
+
+
+
+	
 
 }
 

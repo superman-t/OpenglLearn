@@ -5,12 +5,16 @@ using namespace std;
 using namespace Rendering;
 using namespace Models;
 Model::Model()
+:mScale(glm::vec3(1.0, 1.0, 1.0))
+,mTransform(glm::vec3(0.0, 0.0, 0.0))
+
 {
     
 }
 
-Model::Model(std::string& path)
+Model::Model(const std::string& path)
 {
+	Model();
 	LoadModel(path);
 }
 
@@ -36,8 +40,11 @@ void Model::Draw()
 
 void Model::Draw(const glm::mat4 &projectionMatrix, const glm::mat4 &viewMatrix, const glm::mat4& modelMatrix)
 {
+	glm::mat4 model;
+	model = glm::scale(modelMatrix, mScale);
+	model = glm::translate(model, mTransform);
 	for (GLuint i = 0; i < this->meshes.size(); i++)
-		this->meshes[i].Draw(program, projectionMatrix, viewMatrix, modelMatrix);
+		this->meshes[i].Draw(program, projectionMatrix, viewMatrix, model);
 }
 
 void Model::Destroy()
@@ -58,7 +65,7 @@ const std::vector<GLuint>& Model::GetVbos() const
     return vbos;
 }
 
-void Model::LoadModel(std::string& path)
+void Model::LoadModel(const std::string& path)
 {
 	// Read file via ASSIMP 
 	Assimp::Importer importer; 

@@ -14,7 +14,7 @@ namespace Rendering
 	public:
 		Label();
 		~Label();
-		Label(std::string& _text, unsigned int _size = 20, glm::vec2 _pos = glm::vec2(100, 100));
+		Label(const std::string& _text, unsigned int _size = 20, glm::vec2 _pos = glm::vec2(100, 100));
 
 		virtual void Draw() override;
 		virtual void Draw(const glm::mat4& projectionMatrix,
@@ -37,7 +37,7 @@ namespace Rendering
 			pos = _pos;
 		}
 
-		void SetString(std::string& _text)
+		void SetString(const std::string& _text)
 		{
 			text = _text;
 		}

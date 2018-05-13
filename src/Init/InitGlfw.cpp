@@ -76,9 +76,9 @@ void InitGlfw::Run()
 
 	while(!glfwWindowShouldClose(mWindowHandler))
 	{
+		glfwPollEvents();
 		Render(deltaTime);
         CalculateDeltaTime();
-		glfwPollEvents();
 	}
 }
 

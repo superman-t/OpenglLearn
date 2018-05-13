@@ -18,7 +18,7 @@
     const GLfloat PITCH = 0.0f;
     const GLfloat SPEED = 3.0f;
     const GLfloat SENSITIVTY = 0.025f;
-    const GLfloat ZOOM = 45.0f;
+    const GLfloat ZOOM = 80.0f;
     
     class Camera
     {
@@ -66,7 +66,7 @@
         
         glm::mat4 GetViewMatrix()
         {
-            //std::cout << position.y << " " << position.z << " " << zoom << " " << pitch << " " << yaw << std::endl;
+            // std::cout << position.y << " " << position.z << " " << zoom << " " << pitch << " " << yaw << std::endl;
 			glm::vec3 m(position + front);
 			return glm::lookAt(position, glm::vec3(m.x, m.y, m.z), up);
         }

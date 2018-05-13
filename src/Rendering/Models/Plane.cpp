@@ -25,13 +25,13 @@ void Plane::Create()
     
     std::vector<Vertex> vertices;
     
-    for (int x = -width; x <= width; ++x)
+    for (float x = -width; x <= width; x+=0.5)
     {
         vertices.push_back(Vertex(glm::vec3(x, 0.0f, height), glm::vec4(0.2f, 0.3f, 0.4f, 1.0f)));
         vertices.push_back(Vertex(glm::vec3(x, 0.0f, -height), glm::vec4(0.2f, 0.3f, 0.4f, 1.0f)));
     }
     
-    for (int z = -height; z <= height; ++z)
+    for (float z = -height; z <= height; z += 0.5)
     {
         vertices.push_back(Vertex(glm::vec3(width, 0.0f, z), glm::vec4(0.2f, 0.3f, 0.4f, 1.0f)));
         vertices.push_back(Vertex(glm::vec3(-width, 0.0f, z), glm::vec4(0.2f, 0.3f, 0.4f, 1.0f)));
@@ -65,12 +65,12 @@ void Plane::SetSize(int _width, int _height)
 
 void Plane::Update()
 {
-    
+    Create();
 }
 
 void Plane::Draw(const glm::mat4 &projectionMatrix, const glm::mat4 &viewMatrix, const glm::mat4& modelMatrix)
 {
-	Create();
+	
     glUseProgram(program);
     glUniformMatrix4fv(glGetUniformLocation(program, "viewMatrix"), 1, false,
                        &viewMatrix[0][0]);
@@ -83,6 +83,9 @@ void Plane::Draw(const glm::mat4 &projectionMatrix, const glm::mat4 &viewMatrix,
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
     // draw lines
- 	//glUniform1i(glGetUniformLocation(program, "line"), 1);
- 	//glDrawArrays(GL_LINES, 0, verticesize);
+ 	glUniform1i(glGetUniformLocation(program, "line"), 1);
+	glBindVertexArray(vao);
+ 	glDrawArrays(GL_LINES, 0, verticesize);
+	//glDisableVertexAttribArray(0);
+	//glDisableVertexAttribArray(1);
 }

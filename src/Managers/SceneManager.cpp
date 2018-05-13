@@ -5,11 +5,12 @@ using namespace Managers;
 SceneManager::SceneManager()
 {
     mCamera = new Camera(
-		glm::vec3(0, 150, 450),//pos                         
-		glm::vec3(0, 1, 0)); //up
+		glm::vec3(0, 45, 30),//pos                         
+		glm::vec3(0, 1, 0),//up
+		-90, -22); 
     
     viewMatrix = mCamera->GetViewMatrix();
-    projectionMatrix = glm::perspective(glm::radians(mCamera->zoom), (float)800/600, 0.1f, 1000.0f);
+    projectionMatrix = glm::perspective(glm::radians(mCamera->zoom), (float)800/600, 0.1f, 100.0f);
 	modelMatrix = glm::translate(modelMatrix, glm::vec3(0.0, 1.0, 0.0));
 	//modelMatrix = glm::scale(modelMatrix, glm::vec3(1, 1, 1));
 	mouseRightButtonPressed = false;
@@ -19,7 +20,7 @@ SceneManager::SceneManager()
     lastYpos = 300;
     
     cameraDirection = UNKNOW;
-	fpsLabel = new Label(std::string("60.0"), 20, glm::vec2(30, 100));
+	fpsLabel = new Label(std::string("60.0"), 15, glm::vec2(10, 10));
 	fpsLabel->SetProgram(ShaderManager::getInstance()->GetShader("text"));
 }
 
@@ -97,9 +98,13 @@ void SceneManager::NotifyMouseMove(double xpos, double ypos)
 	if (mouseRightButtonPressed)
 	{
 		modelMatrix = glm::rotate(modelMatrix, (float)(xpos - lastXpos)/180, glm::vec3(0, 1, 0));
+		// modelMatrix = glm::rotate(modelMatrix, (float)(ypos - lastYpos)/180, glm::vec3(1, 0, 0));
 	}
 	if (mouseLeftButtonPressed)
+	{
 		mCamera->ProcessMouseMovement(0, -ypos + lastYpos, true);
+		// mCamera->ProcessMouseMovement(-xpos + lastXpos, -ypos + lastYpos, true);
+	}
 	
 	
 	lastXpos = xpos;

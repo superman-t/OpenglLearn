@@ -22,7 +22,7 @@ namespace Rendering {
         {
         public:
             Model();
-			Model(std::string& path);
+			Model(const std::string& path);
             ~Model();
             
             virtual void Draw() override;
@@ -35,6 +35,9 @@ namespace Rendering {
             
             GLuint GetVao() const override;
             const std::vector<GLuint>& GetVbos() const override;
+
+			void SetTransform(const glm::vec3& transform);
+			void SetScale(const glm::vec3& scale);
             
         protected:
             GLuint vao;
@@ -42,15 +45,27 @@ namespace Rendering {
             std::vector<GLuint> vbos;
 			std::vector<Mesh> meshes;
 			std::string directory;
+			glm::vec3 mScale;
+			glm::vec3 mTransform;
 
 		private:
 			std::vector<Texture> loadedTextures;
-			void LoadModel(std::string& path);
+			void LoadModel(const std::string& path);
 			void ProcessNode(aiNode* node, const aiScene* scene);
 			Mesh ProcessMesh(aiMesh* mesh, const aiScene* scene);
 			std::vector<Texture> LoadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName);
 			GLint TextureFromFile(const char* path, std::string directory);
         };
+
+		inline void Model::SetScale(const glm::vec3& scale)
+		{
+			mScale = scale;
+		}
+
+		inline void Model::SetTransform(const glm::vec3& transform)
+		{
+			mTransform = transform;
+		}
     }
 }
 

@@ -29,17 +29,21 @@ using namespace Managers;
 int main(int argc, const char * argv[]) {
 	Engine* engine = new Engine();
 
-	CubeIndexed* cube = new CubeIndexed();
-	cube->SetProgram(ShaderManager::getInstance()->GetShader("cube"));
-	cube->Create();
+	WindowInfo windowInfo = engine->GetWindowInfo();
+	float width = windowInfo.width;
+	float height = windowInfo.height;
 
+	// CubeIndexed* cube = new CubeIndexed();
+	// cube->SetProgram(ShaderManager::getInstance()->GetShader("cube"));
+	// cube->Create();
 
 	Model* model = new Model(std::string("../res/crystal_maiden/crystal_maiden_econ.fbx"));
-
+	model->SetScale(glm::vec3(0.2f, 0.2f, 0.2f));
+	// model->SetTransform(glm::vec3(-height / 2, 0, -height/2));
 	//Model* model = new Model(std::string("../res/suzanne.obj"));
 	model->SetProgram(ShaderManager::getInstance()->GetShader("texture"));
   
-	engine->GetModelsManager()->AddModel("cube", cube);
+	// engine->GetModelsManager()->AddModel("cube", cube);
 	engine->GetModelsManager()->AddModel("model", model);
 	engine->Run();
 

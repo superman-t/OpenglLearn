@@ -12,7 +12,7 @@ Label::~Label()
 	Destroy();
 }
 
-Label::Label(std::string& _text, unsigned int _size, glm::vec2 _pos):text(_text), size(_size), pos(_pos)
+Label::Label(const std::string& _text, unsigned int _size, glm::vec2 _pos):text(_text), size(_size), pos(_pos)
 {
 	Text2DTextureID = LoadDDS("../res/Holstein.DDS");
 }

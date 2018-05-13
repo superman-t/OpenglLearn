@@ -7,30 +7,31 @@ using namespace BasicEngine;
 using namespace Init;
 using namespace Managers;
 
+#define SafeDelete( ptr ) if( (ptr) != NULL ) { delete (ptr); (ptr) = NULL; }
+
 Engine::Engine()
+:mWindowInfo(std::string("OpenGL Basic Engine"),
+		1280, 720,//size
+		400, 200, //position
+		true)//reshape
+,mContextInfo(3.0, 3.0, true)
+,mFrameBufferInfo(true, true, true, true)
+
 {
 	Init();
 }
 
 Engine::~Engine()
 {
-	if (mModelsManager)
-		delete mModelsManager;
-	if (mSceneManager)
-		delete mSceneManager;
-	
+	SafeDelete(mModelsManager)
+	SafeDelete(mSceneManager)
+
 	glfwTerminate();
 }
 
 bool Engine::Init()
 {
-	WindowInfo window(std::string("OpenGL Basic Engine"),
-		800, 600,//size
-		400, 200, //position
-		true);//reshape
-	ContextInfo context(3, 3, true);
-	FrameBufferInfo frameBufferInfo(true, true, true, true);
-	InitGlfw::Init(window, context, frameBufferInfo);
+	InitGlfw::Init(mWindowInfo, mContextInfo, mFrameBufferInfo);
 
 	mSceneManager = new SceneManager();
 	if (mSceneManager)
