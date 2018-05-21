@@ -8,12 +8,12 @@
 #include <map>
 #include <vector>
 
+
 #include "../IGameObject.h"
 #include "../Mesh.h"
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
-#include <SOIL.h>
 
 namespace Rendering {
     namespace Models

@@ -1,5 +1,9 @@
 #include "Model.h"
 #include <vector>
+#define STB_IMAGE_IMPLEMENTATION
+#define STB_IMAGE_WRITE_IMPLEMENTATION
+#include "../../stb_image.h"
+#include "../../stb_image_write.h"
 
 using namespace std;
 using namespace Rendering;
@@ -187,17 +191,28 @@ vector<Texture> Model::LoadMaterialTextures(aiMaterial* mat, aiTextureType type,
 GLint Model::TextureFromFile(const char* path, string directory)
 {
 	//Generate texture ID and load texture data 
+
 	string filename = string(path);
+	while(filename.find("\\") != string::npos)
+		filename = filename.replace(filename.find("\\"), 1, "/");
 	filename = directory + '/' + filename;
+
 	GLuint textureID;
 	glGenTextures(1, &textureID);
 	int width, height;
+
 	int comp;
-	unsigned char* image = SOIL_load_image(filename.c_str(), &width, &height, &comp, SOIL_LOAD_RGB);
+	unsigned char* tmp = stbi_load(filename.c_str(), &width, &height, &comp, STBI_rgb);
+	if (tmp == NULL)
+	{
+		std::cout << "load file failed" << filename << std::endl;
+		return false;
+	}
+	std::cout << "load texture:" << filename << std::endl;
 	
 	// Assign texture to ID
 	glBindTexture(GL_TEXTURE_2D, textureID);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, tmp);
 	glGenerateMipmap(GL_TEXTURE_2D);
 
 	// Parameters
@@ -206,6 +221,8 @@ GLint Model::TextureFromFile(const char* path, string directory)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glBindTexture(GL_TEXTURE_2D, 0);
-	SOIL_free_image_data(image);
+
+	stbi_image_free(tmp);
+	
 	return textureID;
 }

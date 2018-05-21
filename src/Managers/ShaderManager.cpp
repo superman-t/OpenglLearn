@@ -1,6 +1,12 @@
 #include "ShaderManager.h"
+#include <vector>
 
 using namespace Managers;
+
+#ifdef WIN32
+#include <experimental/filesystem>
+namespace fs = std::experimental::filesystem;
+#endif
 
 std::map<std::string, GLuint> ShaderManager::programs;
 static ShaderManager* shaderManagerInstance = nullptr;
@@ -21,11 +27,9 @@ ShaderManager* ShaderManager::getInstance()
 
 void ShaderManager::Init()
 {
-#ifdef TARGET_COMPILE_XCODE
-	std::string shaderPath("../../Shaders");
-#else
-	std::string shaderPath("../Shaders");
-#endif
+
+    std::string shaderPath(std::string(ROOTPATH) + "Shaders");
+
 #ifdef WIN32
 	 std::string filename, path;
 	 for (fs::recursive_directory_iterator p(shaderPath); p != fs::recursive_directory_iterator{}; ++p)
@@ -43,7 +47,8 @@ void ShaderManager::Init()
 #endif // WIN32
 
 #ifdef TARGET_PLATFORM_MAC || TARGET_PLATFORM_IOS
-	std::vector<std::string> shaderNames = { "cube", "plane", "texture", "text" };
+	 std::string shaders[] = { "cube", "plane", "texture", "text" };
+	std::vector<std::string> shaderNames(shaders, shaders + 4);
 	for (int i = 0; i < shaderNames.size(); ++i)
 	{
 		std::string filename = shaderNames[i];

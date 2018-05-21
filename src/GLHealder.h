@@ -15,4 +15,10 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#ifdef TARGET_COMPILE_XCODE
+#define ROOTPATH "../../"
+#else
+#define ROOTPATH "../"
+#endif
+
 #endif // !GLHEALDER_H

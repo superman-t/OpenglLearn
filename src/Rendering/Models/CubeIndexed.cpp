@@ -25,7 +25,7 @@ void CubeIndexed::Create()
     glGenVertexArrays(1, &vao);
     glBindVertexArray(vao);
     
-    std::vector<unsigned int> indices = {
+    unsigned int indices[] = {
         0,  1,  2,  0,  2,  3,   //front
         4,  5,  6,  4,  6,  7,   //right
         8,  9,  10, 8,  10, 11,  //back
@@ -100,7 +100,7 @@ void CubeIndexed::Create()
     
     glGenBuffers(1, &ibo);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int)*indices.size(), &indices[0], GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int)*24, &indices[0], GL_STATIC_DRAW);
     
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);

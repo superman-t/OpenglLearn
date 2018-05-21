@@ -4,7 +4,8 @@ using namespace Rendering;
 
 Label::Label()
 {
-	Text2DTextureID = LoadDDS("../res/Holstein.DDS");
+    std::string ddsPath = std::string(ROOTPATH) + "res/Holstein.DDS";
+    Text2DTextureID = LoadDDS(ddsPath.c_str());
 }
 
 Label::~Label()
@@ -14,7 +15,8 @@ Label::~Label()
 
 Label::Label(const std::string& _text, unsigned int _size, glm::vec2 _pos):text(_text), size(_size), pos(_pos)
 {
-	Text2DTextureID = LoadDDS("../res/Holstein.DDS");
+    std::string ddsPath = std::string(ROOTPATH) + "res/Holstein.DDS";
+    Text2DTextureID = LoadDDS(ddsPath.c_str());
 }
 
 void Label::SetProgram(GLuint program)

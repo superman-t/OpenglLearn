@@ -17,15 +17,15 @@
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
-#include <SOIL.h>
 #include <string>
 #include "src/Managers/ShaderManager.h"
 
-
+using namespace std;
 using namespace BasicEngine;
 using namespace Rendering;
 using namespace Models;
 using namespace Managers;
+
 int main(int argc, const char * argv[]) {
 	Engine* engine = new Engine();
 
@@ -37,7 +37,7 @@ int main(int argc, const char * argv[]) {
 	// cube->SetProgram(ShaderManager::getInstance()->GetShader("cube"));
 	// cube->Create();
 
-	Model* model = new Model(std::string("../res/crystal_maiden/crystal_maiden_econ.fbx"));
+    Model* model = new Model(std::string(string(ROOTPATH) + "res/crystal_maiden/crystal_maiden_econ.fbx"));
 	model->SetScale(glm::vec3(0.2f, 0.2f, 0.2f));
 	// model->SetTransform(glm::vec3(-height / 2, 0, -height/2));
 	//Model* model = new Model(std::string("../res/suzanne.obj"));
