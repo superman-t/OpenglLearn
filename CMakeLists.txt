@@ -2,21 +2,19 @@ cmake_minimum_required (VERSION 2.8)
 
 project (OpenglLearn)
 
-add_subdirectory(${PROJECT_SOURCE_DIR}/3rdparty/glfw)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR})
+set(BIN_DIR ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+
+# set glfw shader BUILD_SHARED_LIBS
 set(BUILD_SHARED_LIBS ON CACHE BOOL " " FORCE)
-
-
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin/$<CONFIGURATION>)
+add_subdirectory(${PROJECT_SOURCE_DIR}/3rdparty/glfw)
 
 # Disable building extras
 set(ASSIMP_BUILD_ASSIMP_TOOLS OFF CACHE BOOL " " FORCE)
 set(ASSIMP_BUILD_TESTS OFF CACHE BOOL " " FORCE)
 set(SYSTEM_IRRXML OFF CACHE BOOL " " FORCE)
 
-set(BIN_DIR ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
-
 add_subdirectory(${PROJECT_SOURCE_DIR}/3rdparty/assimp)
-include_directories(${PROJECT_SOURCE_DIR}/3rdparty/assimp/include)
 
 file (GLOB OpenglLearn_src "main.cpp" 
 							"src/*.cpp" "src/*.h" 
@@ -26,19 +24,15 @@ file (GLOB OpenglLearn_src "main.cpp"
               "src/Rendering/Models/*.h" "src/Rendering/Models/*.cpp"
 							)
 
-
 if (WIN32)
 	include_directories(${PROJECT_SOURCE_DIR}/3rdparty/glad/include)
 	file(GLOB OpenglLearn_src  ${OpenglLearn_src} "src/glad.c")
 	link_directories(${CMAKE_BINARY_DIR}/lib)
 endif()
 
+include_directories(${PROJECT_SOURCE_DIR}/3rdparty/assimp/include)
 include_directories(${PROJECT_SOURCE_DIR}/3rdparty/glfw/include)
 include_directories(${PROJECT_SOURCE_DIR}/3rdparty/glm)
-
-if(WIN32)
-	add_definitions(-DTARGET_PLATFORM_WINDOWS -DWIN32)
-endif()
 
 if(APPLE)
 	add_definitions( -DTARGET_PLATFORM_MAC -DTARGET_PLATFORM_IOS)
@@ -66,7 +60,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -v -stdlib=libc++")
 
 function(PostCopyDir src dst)
 message(STATUS "copy dir:${src} to ${dst}")
-add_custom_command(TARGET OpenglLearn POST_BUILD 			# Adds a post-build event
+add_custom_command(TARGET OpenglLearn POST_BUILD  			# Adds a post-build event
     COMMAND ${CMAKE_COMMAND} -E copy_directory					# which executes "cmake - E copy"
         "${src}"      	                                # <--this is in "${PROJECT_BINARY_DIR}/3rdparty/assimp/code/$<CONFIGURATION>"
         ${dst})										    # <--this is out path $<TARGET_FILE_DIR:OpenglLearn>
@@ -75,7 +69,9 @@ endfunction(PostCopyDir src dst)
 if (MSVC)
     set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT OpenglLearn)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -W4 -EHsc -D_USE_MATH_DEFINES")
-    PostCopyDir(${PROJECT_BINARY_DIR}/3rdparty/glfw/src/$<CONFIGURATION> ${BIN_DIR})
+    PostCopyDir(${PROJECT_BINARY_DIR}/3rdparty/glfw/src/$<CONFIGURATION> ${BIN_DIR}/$<CONFIGURATION>)
+    PostCopyDir(${PROJECT_SOURCE_DIR}/res ${BIN_DIR}/res)
+    PostCopyDir(${PROJECT_SOURCE_DIR}/Shaders ${BIN_DIR}/Shaders)
 else()
     set(CMAKE_CXX_COMPILER      "clang++" )         # 显示指定使用的C++编译器
     set(CMAKE_CXX_FLAGS   "-g")                     # 调试信息
