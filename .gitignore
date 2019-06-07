@@ -33,5 +33,6 @@
 
 #Directory
 *build*
-res
+*bin*
+.vscode
 

@@ -33,18 +33,17 @@ int main(int argc, const char * argv[]) {
 	float width = windowInfo.width;
 	float height = windowInfo.height;
 
-	// CubeIndexed* cube = new CubeIndexed();
-	// cube->SetProgram(ShaderManager::getInstance()->GetShader("cube"));
-	// cube->Create();
+	CubeIndexed* cube = new CubeIndexed();
+	cube->SetProgram( ShaderManager::getInstance()->GetShader( "cube" ) );
+	cube->Create();
 
-    Model* model = new Model(std::string(string(ROOTPATH) + "res/crystal_maiden/crystal_maiden_econ.fbx"));
-	model->SetScale(glm::vec3(0.2f, 0.2f, 0.2f));
-	// model->SetTransform(glm::vec3(-height / 2, 0, -height/2));
-	//Model* model = new Model(std::string("../res/suzanne.obj"));
-	model->SetProgram(ShaderManager::getInstance()->GetShader("texture"));
-  
-	// engine->GetModelsManager()->AddModel("cube", cube);
-	engine->GetModelsManager()->AddModel("model", model);
+    Model* model1 = new Model(std::string(string(ROOTPATH) + "res/crystal_maiden/crystal_maiden_econ.fbx"));
+	model1->SetScale(glm::vec3(0.2f, 0.2f, 0.2f));
+	model1->SetProgram(ShaderManager::getInstance()->GetShader("texture"));
+
+	
+	engine->GetModelsManager()->AddModel("cube", cube);
+	engine->GetModelsManager()->AddModel("model", model1);
 	engine->Run();
 
 	delete engine;
